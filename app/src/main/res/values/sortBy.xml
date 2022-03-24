@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+        <array name="options">
+            <item> Alfabéticamente</item>
+            <item> Por fecha de creación</item>
+            <item> Recientes </item>
+
+        </array>
+</resources>
