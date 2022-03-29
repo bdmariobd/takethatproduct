@@ -7,7 +7,7 @@
     tools:context=".MainActivity">
 
     <TextView
-        android:id="@+id/section"
+        android:id="@+id/MainViewSection"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
@@ -21,13 +21,13 @@
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="348dp"
         android:layout_height="465dp"
-        android:layout_marginTop="36dp"
-        app:layout_constraintEnd_toEndOf="@+id/linearLayout"
-        app:layout_constraintStart_toStartOf="@+id/linearLayout"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="@+id/mainViewLinearLayout"
+        app:layout_constraintStart_toStartOf="@+id/mainViewLinearLayout"
+        app:layout_constraintTop_toBottomOf="@+id/mainViewLinearLayout" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingActionButton2"
+        android:id="@+id/addNoteButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="32dp"
@@ -39,7 +39,7 @@
         app:srcCompat="@android:drawable/ic_menu_add" />
 
     <LinearLayout
-        android:id="@+id/linearLayout"
+        android:id="@+id/mainViewLinearLayout"
         android:layout_width="350dp"
         android:layout_height="55dp"
         android:layout_marginTop="28dp"
@@ -47,30 +47,60 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/section">
+        app:layout_constraintTop_toBottomOf="@+id/MainViewSection">
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/mainViewInfoText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="TextView" />
 
         <Spinner
-            android:id="@+id/spinner"
+            android:id="@+id/mainViewOrderNotesOptionsSpinner"
             android:layout_width="172dp"
             android:layout_height="56dp"
             android:entries="@array/options"
             android:spinnerMode="dropdown" />
 
-        <Button
-            android:id="@+id/button3"
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:layout_width="64dp"
-            android:layout_height="52dp"
-            app:icon="@android:drawable/ic_menu_sort_alphabetically"
-            app:iconPadding="0dp"
-            app:iconTint="#000000" />
+        <ImageButton
+            android:id="@+id/mainViewNotesOrderButton"
+            android:layout_width="57dp"
+            android:layout_height="match_parent"
+            android:background="#FFFFFF"
+            android:onClick="pulsado"
+            app:srcCompat="@android:drawable/arrow_up_float"
+            app:tint="#000000" />
 
     </LinearLayout>
+
+    <Button
+        android:id="@+id/mainViewNotesOrderButton2"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="64dp"
+        android:layout_height="52dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        android:visibility="invisible"
+        app:icon="@android:drawable/ic_menu_sort_alphabetically"
+        app:iconPadding="0dp"
+        app:iconTint="#000000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/imageButton4"
+        android:layout_width="61dp"
+        android:layout_height="56dp"
+        android:layout_marginTop="23dp"
+        android:layout_marginEnd="34dp"
+        android:layout_marginRight="34dp"
+        android:adjustViewBounds="true"
+        android:background="#FFFFFF"
+        android:padding="0dp"
+        android:scaleType="fitCenter"
+        app:layout_constraintEnd_toStartOf="@+id/mainViewNotesOrderButton2"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/a_z" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
