@@ -62,48 +62,31 @@
             android:id="@+id/mainViewOrderNotesOptionsSpinner"
             android:layout_width="172dp"
             android:layout_height="56dp"
-            android:entries="@array/options"
             android:spinnerMode="dropdown" />
 
         <ImageButton
             android:id="@+id/mainViewNotesOrderButton"
             android:layout_width="57dp"
-            android:layout_height="match_parent"
+            android:layout_height="55dp"
             android:background="#FFFFFF"
             android:onClick="pulsado"
-            app:srcCompat="@android:drawable/arrow_up_float"
+            app:srcCompat="@android:drawable/ic_menu_sort_alphabetically"
             app:tint="#000000" />
 
     </LinearLayout>
 
-    <Button
-        android:id="@+id/mainViewNotesOrderButton2"
-        style="@style/Widget.AppCompat.Button.Borderless"
-        android:layout_width="64dp"
-        android:layout_height="52dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
-        android:visibility="invisible"
-        app:icon="@android:drawable/ic_menu_sort_alphabetically"
-        app:iconPadding="0dp"
-        app:iconTint="#000000"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <ImageButton
-        android:id="@+id/imageButton4"
+        android:id="@+id/mainViewNotesOrderButton2"
         android:layout_width="61dp"
         android:layout_height="56dp"
-        android:layout_marginTop="23dp"
-        android:layout_marginEnd="34dp"
-        android:layout_marginRight="34dp"
+        android:layout_marginEnd="113dp"
+        android:layout_marginRight="113dp"
         android:adjustViewBounds="true"
         android:background="#FFFFFF"
         android:padding="0dp"
         android:scaleType="fitCenter"
-        app:layout_constraintEnd_toStartOf="@+id/mainViewNotesOrderButton2"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/a_z" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/a_z"
+        tools:layout_editor_absoluteY="16dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
