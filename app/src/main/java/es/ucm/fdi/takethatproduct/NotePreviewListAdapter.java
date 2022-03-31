@@ -10,22 +10,25 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import es.ucm.fdi.takethatproduct.integration.Note;
 
 public class NotePreviewListAdapter extends RecyclerView.Adapter<NotePreviewListAdapter.NoteViewHolder> {
 
 
-    private ArrayList<String> mNoteList;
+    private List<Note> mNoteList;
     private final LayoutInflater mInflater;
     private final MainActivity context;
 
-    public void setmNoteList(ArrayList<String> mNoteList){
+    public void setmNoteList(List<Note> mNoteList){
         this.mNoteList = mNoteList;
+        notifyDataSetChanged();
     }
 
     public NotePreviewListAdapter(MainActivity context) {
-        this.mInflater = LayoutInflater.from(context);
-        this.mNoteList = new ArrayList<String>();
         this.context = context;
+        this.mInflater = LayoutInflater.from(context);
     }
 
     class NoteViewHolder extends RecyclerView.ViewHolder {
@@ -55,7 +58,6 @@ public class NotePreviewListAdapter extends RecyclerView.Adapter<NotePreviewList
     @Override
     public void onBindViewHolder(@NonNull NotePreviewListAdapter.NoteViewHolder holder, int position) {
         //code to set one note preview content
-
         holder.noteTotalViewTitle.setText("Prueba");
         holder.noteTotalViewBody.setText("Prueba prueba loren ipsum la xavineta xdd");
         /*
@@ -85,6 +87,7 @@ public class NotePreviewListAdapter extends RecyclerView.Adapter<NotePreviewList
 
     @Override
     public int getItemCount() {
+        if(mNoteList == null) return 0;
         return this.mNoteList.size();
     }
 }

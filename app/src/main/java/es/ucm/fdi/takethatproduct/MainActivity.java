@@ -1,7 +1,10 @@
 package es.ucm.fdi.takethatproduct;
 
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.loader.app.LoaderManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,10 +23,14 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import es.ucm.fdi.takethatproduct.integration.Note;
+import es.ucm.fdi.takethatproduct.integration.NoteViewModel;
+
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     private NotePreviewListAdapter notePreviewListAdapter;
     RecyclerView notePreviewListView;
+    private NoteViewModel mNoteViewModel;
 
     String[] orderNotesOptions = {"Alfabéticamente", "Por fecha de creación", "Recientes"};
     Spinner spin;
@@ -33,21 +40,17 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        mNoteViewModel = ViewModelProviders.of(this).get(NoteViewModel.class);
+
+        mNoteViewModel.getAllNotes().observe(this, new Observer<List<Note>>() {
+            @Override
+            public void onChanged(@Nullable final List<Note> notes) {
+                // Update the cached copy of the words in the adapter.
+                notePreviewListAdapter.setmNoteList(notes);
+            }
+        });
+
         notePreviewListView = findViewById(R.id.notePreviewList);
-        notePreviewListAdapter = new NotePreviewListAdapter(this);
-
-        LoaderManager loaderManager = LoaderManager.getInstance(this);
-        notePreviewListView.setLayoutManager(new LinearLayoutManager(this));
-        notePreviewListView.setAdapter(notePreviewListAdapter);
-        if(loaderManager.getLoader(0)!=null){
-            loaderManager.initLoader(0,null,null);
-        }
-
-        List<String> dummyList = new ArrayList<String>();
-        dummyList.add("test");
-        dummyList.add("test");
-        notePreviewListAdapter.setmNoteList((ArrayList<String>) dummyList);
-        notePreviewListAdapter.notifyDataSetChanged();
 
 
 
