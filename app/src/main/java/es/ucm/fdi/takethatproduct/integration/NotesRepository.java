@@ -2,6 +2,7 @@ package es.ucm.fdi.takethatproduct.integration;
 
 import android.app.Application;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 
@@ -19,6 +20,7 @@ public class NotesRepository {
     }
 
     LiveData<List<Note>> getAllNotes() {
+        //Log.d("Notes", Integer.toString(mAllNotes.getValue().size()));
         return mAllNotes;
     }
 
@@ -37,6 +39,26 @@ public class NotesRepository {
         @Override
         protected Void doInBackground(final Note... params) {
             mAsyncTaskDao.insert(params[0]);
+            return null;
+        }
+    }
+
+
+    public void delete () {
+        new DeleteAsyncTask(mNoteDao).execute();
+    }
+
+    private static class DeleteAsyncTask extends AsyncTask<Note, Void, Void> {
+
+        private DAONote mAsyncTaskDao;
+
+        DeleteAsyncTask(DAONote dao) {
+            mAsyncTaskDao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(final Note... params) {
+            mAsyncTaskDao.deleteAll();
             return null;
         }
     }

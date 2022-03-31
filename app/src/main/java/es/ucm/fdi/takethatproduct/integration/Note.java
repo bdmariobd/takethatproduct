@@ -5,6 +5,7 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 
 @Entity(tableName = "notes")
@@ -64,5 +65,12 @@ public class Note {
 
     public void setFechaModificacion(String fechaModificacion) {
         this.fechaModificacion = fechaModificacion;
+    }
+
+    public Note(String titulo, String cuerpo) {
+        this.titulo = titulo;
+        this.cuerpo = cuerpo;
+        this.fechaCreacion = new Date().toString();
+        this.fechaModificacion = new Date().toString();
     }
 }

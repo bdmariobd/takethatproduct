@@ -26,6 +26,11 @@ public class NotePreviewListAdapter extends RecyclerView.Adapter<NotePreviewList
         notifyDataSetChanged();
     }
 
+    public void deleteAllNotes(){
+        this.mNoteList = new ArrayList<Note>();
+        notifyDataSetChanged();
+    }
+
     public NotePreviewListAdapter(MainActivity context) {
         this.context = context;
         this.mInflater = LayoutInflater.from(context);
@@ -58,8 +63,9 @@ public class NotePreviewListAdapter extends RecyclerView.Adapter<NotePreviewList
     @Override
     public void onBindViewHolder(@NonNull NotePreviewListAdapter.NoteViewHolder holder, int position) {
         //code to set one note preview content
-        holder.noteTotalViewTitle.setText("Prueba");
-        holder.noteTotalViewBody.setText("Prueba prueba loren ipsum la xavineta xdd");
+        Note current = mNoteList.get(position);
+        holder.noteTotalViewTitle.setText(current.getTitulo());
+        holder.noteTotalViewBody.setText(current.getCuerpo());
         /*
         BookInfo book = mBookList.get(position);
         holder.bookTitle.setText(book.getTitle());

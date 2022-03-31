@@ -18,6 +18,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -31,6 +32,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     private NotePreviewListAdapter notePreviewListAdapter;
     RecyclerView notePreviewListView;
     private NoteViewModel mNoteViewModel;
+    NotePreviewListAdapter adapter;
+    private TextView mainViewInfoText;
 
     String[] orderNotesOptions = {"Alfabéticamente", "Por fecha de creación", "Recientes"};
     Spinner spin;
@@ -42,18 +45,20 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         mNoteViewModel = ViewModelProviders.of(this).get(NoteViewModel.class);
 
+
+        mainViewInfoText = findViewById(R.id.mainViewInfoText);
+        notePreviewListView = findViewById(R.id.notePreviewList);
+        adapter = new NotePreviewListAdapter(this);
+        notePreviewListView.setAdapter(adapter);
+        notePreviewListView.setLayoutManager(new LinearLayoutManager(this));
         mNoteViewModel.getAllNotes().observe(this, new Observer<List<Note>>() {
             @Override
             public void onChanged(@Nullable final List<Note> notes) {
                 // Update the cached copy of the words in the adapter.
-                notePreviewListAdapter.setmNoteList(notes);
+                adapter.setmNoteList(notes);
+                mainViewInfoText.setText("Tienes " + notes.size() + " notas");
             }
         });
-
-        notePreviewListView = findViewById(R.id.notePreviewList);
-
-
-
         //Getting the instance of Spinner and applying OnItemSelectedListener on it
         //Spinner
         spin = (Spinner) findViewById(R.id.mainViewOrderNotesOptionsSpinner);
@@ -68,6 +73,22 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         boton_orden_notas = (ImageButton) findViewById(R.id.mainViewNotesOrderButton);
 
+
+        findViewById(R.id.addNoteButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Note n = new Note("Titulo de prueba", "Cuerpo de prueba");
+                mNoteViewModel.insert(n);
+            }
+        });
+
+        findViewById(R.id.deleteLastNote).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                mNoteViewModel.delete();
+            }
+        });
     }
 
     boolean boton_pulsado = true;
@@ -126,5 +147,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         // TODO Auto-generated method stub
 
     }
+
 
 }
