@@ -16,7 +16,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,6 +36,11 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     String[] orderNotesOptions = {"Alfabéticamente", "Por fecha de creación", "Recientes"};
     Spinner spin;
+
+    String optionSelected = "Alfabéticamente";
+
+    boolean boton_pulsado = true;
+    ImageButton boton_orden_notas;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,35 +95,79 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         });
     }
 
-    boolean boton_pulsado = true;
-    ImageButton boton_orden_notas;
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     public void pulsado(View view) {
-        // boton_orden_notas = (ImageButton) findViewById(R.id.mainViewNotesOrderButton);
 
-        if (boton_pulsado) {
-            boton_pulsado = false;
+        // Para cambiar el tamaño de ImageButton (el padding)
+        int sizeInDp = 10;
+        float scale = getResources().getDisplayMetrics().density;
+        int dpAsPixels = (int) (sizeInDp*scale + 0.5f);
 
-            int g = boton_orden_notas.getLayoutDirection();
+        if (optionSelected == "Alfabéticamente")
+        {
+            if (boton_pulsado) {
+                boton_pulsado = false;
 
-            boton_orden_notas.setImageResource(android.R.drawable.arrow_up_float);
-            // R.drawable.z_a
+                boton_orden_notas.setImageResource(R.drawable.z_a);
+                boton_orden_notas.setPadding(dpAsPixels, dpAsPixels, dpAsPixels, dpAsPixels);
 
-            // ordenar las notas en orden inverso
-            // ...
-        } else {
-            boton_pulsado = true;
-            boton_orden_notas.setImageResource(android.R.drawable.ic_menu_sort_alphabetically);
-            //boton_orden_notas.setPadding(0, 0, 0, 0);
-            //boton_orden_notas.setScaleType(ImageView.ScaleType.FIT_CENTER);
-            //boton_orden_notas.setAdjustViewBounds(true);
+                // ordenar las notas en orden inverso
+                // ...
+            }
+            else {
+                boton_pulsado = true;
 
-            //R.drawable.a_z
+                boton_orden_notas.setImageResource(R.drawable.a_z);
+                sizeInDp = 0;
+                dpAsPixels = (int) (sizeInDp*scale + 0.5f);
+                boton_orden_notas.setPadding(dpAsPixels, dpAsPixels, dpAsPixels, dpAsPixels);
 
+                // ordenar las notas en el orden normal
+                // ...
+            }
+        }
+        else if (optionSelected == "Por fecha de creación")
+        {
+            if (boton_pulsado) {
+                boton_pulsado = false;
 
-            // ordenar las notas en el orden normal
-            // ...
+                boton_orden_notas.setImageResource(R.drawable.flecha_hacia_arriba);
+                boton_orden_notas.setPadding(dpAsPixels, dpAsPixels, dpAsPixels, dpAsPixels);
+
+                // ordenar las notas en orden inverso
+                // ...
+            }
+            else {
+                boton_pulsado = true;
+
+                boton_orden_notas.setImageResource(R.drawable.flecha_hacia_abajo);
+                boton_orden_notas.setPadding(dpAsPixels, dpAsPixels, dpAsPixels, dpAsPixels);
+
+                // ordenar las notas en el orden normal
+                // ...
+            }
+        }
+        else // "Recientes"
+        {
+            if (boton_pulsado) {
+                boton_pulsado = false;
+
+                boton_orden_notas.setImageResource(R.drawable.flecha_hacia_arriba);
+                boton_orden_notas.setPadding(dpAsPixels, dpAsPixels, dpAsPixels, dpAsPixels);
+
+                // ordenar las notas en orden inverso
+                // ...
+            }
+            else {
+                boton_pulsado = true;
+
+                boton_orden_notas.setImageResource(R.drawable.flecha_hacia_abajo);
+                boton_orden_notas.setPadding(dpAsPixels, dpAsPixels, dpAsPixels, dpAsPixels);
+
+                // ordenar las notas en el orden normal
+                // ...
+            }
         }
     }
 
@@ -131,15 +179,48 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     public void onItemSelected(AdapterView<?> arg0, View arg1, int position,long id) {
         Toast.makeText(getApplicationContext(), orderNotesOptions[position], Toast.LENGTH_LONG).show();
 
+        // Para cambiar el tamaño de ImageButton (el padding)
+        int sizeInDp = 10;
+        float scale = getResources().getDisplayMetrics().density;
+        int dpAsPixels = (int) (sizeInDp*scale + 0.5f);
 
         int Hold = spin.getSelectedItemPosition() + 1 ;
         Log.d("PRUEBA", "MENSAJE ITEM POS: " + Hold);
 
-        if (spin.getSelectedItem() == "Recientes")
+        if (spin.getSelectedItem() == "Alfabéticamente")
         {
-            //Log.d("PRUEBA", "MENSAJE NOMBRE ITEM: " + spin.getSelectedItem());
-            boton_orden_notas.setImageResource(android.R.drawable.arrow_down_float);
+            // Log.d("PRUEBA", "MENSAJE NOMBRE ITEM: " + spin.getSelectedItem());
+            optionSelected = "Alfabéticamente";
+
+            boton_orden_notas.setImageResource(R.drawable.a_z);
+            sizeInDp = 0;
+            dpAsPixels = (int) (sizeInDp*scale + 0.5f);
+            boton_orden_notas.setPadding(dpAsPixels, dpAsPixels, dpAsPixels, dpAsPixels);
+
+            // ordenar las notas en el orden normal
+            // ...
         }
+        else if (spin.getSelectedItem() == "Por fecha de creación")
+        {
+            optionSelected = "Por fecha de creación";
+
+            boton_orden_notas.setImageResource(R.drawable.flecha_hacia_abajo);
+            boton_orden_notas.setPadding(dpAsPixels, dpAsPixels, dpAsPixels, dpAsPixels);
+
+            // ordenar las notas en el orden normal
+            // ...
+        }
+        else
+        {
+            optionSelected = "Recientes";
+
+            boton_orden_notas.setImageResource(R.drawable.flecha_hacia_abajo);
+            boton_orden_notas.setPadding(dpAsPixels, dpAsPixels, dpAsPixels, dpAsPixels);
+
+            // ordenar las notas en el orden normal
+            // ...
+        }
+
     }
 
     @Override
