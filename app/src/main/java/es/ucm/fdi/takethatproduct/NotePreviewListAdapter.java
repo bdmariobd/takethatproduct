@@ -1,13 +1,16 @@
 package es.ucm.fdi.takethatproduct;
 
+import android.app.MediaRouteButton;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.transition.TransitionManager;
 
 import java.util.ArrayList;
 
@@ -31,13 +34,19 @@ public class NotePreviewListAdapter extends RecyclerView.Adapter<NotePreviewList
     class NoteViewHolder extends RecyclerView.ViewHolder {
 
         final NotePreviewListAdapter mAdapter;
-        public final TextView noteTotalViewTitle;
-        public final EditText noteTotalViewBody;
+        public final TextView notePreviewTitle;
+        //public final EditText noteTotalViewBody;
+        //public final ImageView notePreviewImage;
+        //public final TextView notePreviewDate;
         public final View itemView;
+        public MediaRouteButton details;
+
         public NoteViewHolder(View itemView, NotePreviewListAdapter adapter) {
             super(itemView);
-            noteTotalViewTitle = itemView.findViewById(R.id.noteTotalViewTitle);
-            noteTotalViewBody = itemView.findViewById(R.id.noteTotalViewBody);
+            notePreviewTitle = itemView.findViewById(R.id.notePreviewTitle);
+            //notePreviewImage = itemView.findViewById(R.id.notePreviewImage);
+            //notePreviewDate = itemView.findViewById(R.id.notePreviewDate);
+
             this.mAdapter = adapter;
             this.itemView = itemView;
         }
@@ -47,7 +56,8 @@ public class NotePreviewListAdapter extends RecyclerView.Adapter<NotePreviewList
     @Override
     public NotePreviewListAdapter.NoteViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View mItemView = mInflater.inflate(
-                R.layout.note_total_view, parent, false);
+                R.layout.note_preview, parent, false);
+        // R.layout.note_total_view
 
         return new NoteViewHolder(mItemView, this);
     }
@@ -55,9 +65,20 @@ public class NotePreviewListAdapter extends RecyclerView.Adapter<NotePreviewList
     @Override
     public void onBindViewHolder(@NonNull NotePreviewListAdapter.NoteViewHolder holder, int position) {
         //code to set one note preview content
+<<<<<<< Updated upstream
 
         holder.noteTotalViewTitle.setText("Prueba");
         holder.noteTotalViewBody.setText("Prueba prueba loren ipsum la xavineta xdd");
+=======
+        Note current = mNoteList.get(position);
+        holder.notePreviewTitle.setText(current.getTitulo());
+        //holder.noteTotalViewBody.setText(current.getCuerpo());
+
+        int mExpandedPosition = -1;
+        int previousExpandedPosition = -1;
+        //final boolean isExpanded = position==mExpandedPosition; holder.details.setVisibility(isExpanded?View.VISIBLE:View.GONE); holder.itemView.setActivated(isExpanded); if (isExpanded) previousExpandedPosition = position; holder.itemView.setOnClickListener(new View.OnClickListener() { @Override public void onClick(View v) { mExpandedPosition = isExpanded ? -1:position; notifyItemChanged(previousExpandedPosition); notifyItemChanged(position); } });
+
+>>>>>>> Stashed changes
         /*
         BookInfo book = mBookList.get(position);
         holder.bookTitle.setText(book.getTitle());
