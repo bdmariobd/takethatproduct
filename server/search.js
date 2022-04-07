@@ -1,5 +1,8 @@
 const http = require("http")
 
+//library unofficial amazon search
+//https://github.com/kyle-n/unofficial-amazon-search
+//https://www.npmjs.com/package/unofficial-amazon-search
 const { searchAmazon, AmazonSearchResult } = require('unofficial-amazon-search');
 
 
