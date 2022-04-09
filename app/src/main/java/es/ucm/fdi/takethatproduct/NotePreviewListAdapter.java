@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-import es.ucm.fdi.takethatproduct.integration.Note;
+import es.ucm.fdi.takethatproduct.integration.note.Note;
 
 public class NotePreviewListAdapter extends RecyclerView.Adapter<NotePreviewListAdapter.NoteViewHolder> {
 

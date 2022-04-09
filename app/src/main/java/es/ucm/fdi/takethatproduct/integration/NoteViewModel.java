@@ -7,6 +7,8 @@ import androidx.lifecycle.LiveData;
 
 import java.util.List;
 
+import es.ucm.fdi.takethatproduct.integration.note.Note;
+
 public class NoteViewModel extends AndroidViewModel {
 
     private NotesRepository mRepository;
@@ -21,7 +23,7 @@ public class NoteViewModel extends AndroidViewModel {
 
     public LiveData<List<Note>> getAllNotes() { return mAllNotes; }
 
-    public void insert(Note Note) { mRepository.insert(Note); }
+    public void insert(Note Note) { mRepository.insertNote(Note); }
 
-    public void delete() { mRepository.delete();}
+    public void delete() { mRepository.deleteNote();}
 }

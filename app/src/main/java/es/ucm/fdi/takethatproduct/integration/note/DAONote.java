@@ -1,4 +1,4 @@
-package es.ucm.fdi.takethatproduct.integration;
+package es.ucm.fdi.takethatproduct.integration.note;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
@@ -24,7 +24,7 @@ public interface DAONote {
     @Query("SELECT * from notes")
     LiveData<List<Note>> getAllNotes();
 
-    @Query("SELECT * FROM notes WHERE titulo LIKE :uuid ")
+    @Query("SELECT * FROM notes WHERE uuid LIKE :uuid ")
     public List<Note> findNotebyUuid(int uuid);
 
     @Query("SELECT * FROM notes WHERE titulo LIKE :word ")
