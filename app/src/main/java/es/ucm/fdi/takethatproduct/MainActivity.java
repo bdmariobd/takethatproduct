@@ -5,7 +5,6 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.loader.app.LoaderManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -20,10 +19,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import es.ucm.fdi.takethatproduct.integration.Note;
+import es.ucm.fdi.takethatproduct.integration.note.Note;
 import es.ucm.fdi.takethatproduct.integration.NoteViewModel;
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {

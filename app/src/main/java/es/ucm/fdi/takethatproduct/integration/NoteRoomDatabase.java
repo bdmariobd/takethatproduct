@@ -9,9 +9,15 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
-@Database(entities = {Note.class}, version = 1, exportSchema = false)
+import es.ucm.fdi.takethatproduct.integration.note.DAONote;
+import es.ucm.fdi.takethatproduct.integration.note.Note;
+import es.ucm.fdi.takethatproduct.integration.product.DAOProduct;
+import es.ucm.fdi.takethatproduct.integration.product.Product;
+
+@Database(entities = {Note.class, Product.class}, version = 1, exportSchema = false)
 public abstract class NoteRoomDatabase extends RoomDatabase {
     public abstract DAONote NoteDao();
+    public abstract DAOProduct ProductDao();
     private static NoteRoomDatabase INSTANCE;
 
     static NoteRoomDatabase getDatabase(final Context context) {
@@ -19,7 +25,8 @@ public abstract class NoteRoomDatabase extends RoomDatabase {
             synchronized (NoteRoomDatabase.class) {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
-                            NoteRoomDatabase.class, "notes")
+                            NoteRoomDatabase.class, "myDb")
+
                             // Wipes and rebuilds instead of migrating
                             // if no Migration object.
                             // Migration is not part of this practical.
@@ -53,9 +60,12 @@ public abstract class NoteRoomDatabase extends RoomDatabase {
     private static class PopulateDbAsync extends AsyncTask<Void, Void, Void> {
 
         private final DAONote mDao;
+        private final DAOProduct mDaoP;
+
 
         PopulateDbAsync(NoteRoomDatabase db) {
             mDao = db.NoteDao();
+            mDaoP = db.ProductDao();
         }
 
         @Override
@@ -63,7 +73,7 @@ public abstract class NoteRoomDatabase extends RoomDatabase {
             // Start the app with a clean database every time.
             // Not needed if you only populate on creation.
             mDao.deleteAll();
-
+            mDaoP.deleteAll();
             return null;
         }
     }

@@ -2,11 +2,13 @@ package es.ucm.fdi.takethatproduct.integration;
 
 import android.app.Application;
 import android.os.AsyncTask;
-import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 
 import java.util.List;
+
+import es.ucm.fdi.takethatproduct.integration.note.DAONote;
+import es.ucm.fdi.takethatproduct.integration.note.Note;
 
 public class NotesRepository {
 
@@ -24,7 +26,7 @@ public class NotesRepository {
         return mAllNotes;
     }
 
-    public void insert (Note Note) {
+    public void insertNote (Note Note) {
         new insertAsyncTask(mNoteDao).execute(Note);
     }
 
@@ -44,7 +46,7 @@ public class NotesRepository {
     }
 
 
-    public void delete () {
+    public void deleteNote () {
         new DeleteAsyncTask(mNoteDao).execute();
     }
 
