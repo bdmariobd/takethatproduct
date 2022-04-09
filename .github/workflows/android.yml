@@ -26,9 +26,9 @@ jobs:
       run: ./gradlew build
     - name : Upload APK file
       uses: actions/upload-artifact@v1
-        with:
-          name: apk
-          path: app/build/outputs/apk/debug/app-debug.apk
+      with:
+        name: apk
+        path: app/build/outputs/apk/debug/app-debug.apk
 
 
   release:
