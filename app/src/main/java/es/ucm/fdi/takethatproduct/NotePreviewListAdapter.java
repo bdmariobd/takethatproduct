@@ -13,22 +13,30 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.transition.TransitionManager;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import es.ucm.fdi.takethatproduct.integration.Note;
 
 public class NotePreviewListAdapter extends RecyclerView.Adapter<NotePreviewListAdapter.NoteViewHolder> {
 
 
-    private ArrayList<String> mNoteList;
+    private List<Note> mNoteList;
     private final LayoutInflater mInflater;
     private final MainActivity context;
 
-    public void setmNoteList(ArrayList<String> mNoteList){
+    public void setmNoteList(List<Note> mNoteList){
         this.mNoteList = mNoteList;
+        notifyDataSetChanged();
+    }
+
+    public void deleteAllNotes(){
+        this.mNoteList = new ArrayList<Note>();
+        notifyDataSetChanged();
     }
 
     public NotePreviewListAdapter(MainActivity context) {
-        this.mInflater = LayoutInflater.from(context);
-        this.mNoteList = new ArrayList<String>();
         this.context = context;
+        this.mInflater = LayoutInflater.from(context);
     }
 
     class NoteViewHolder extends RecyclerView.ViewHolder {
@@ -65,11 +73,10 @@ public class NotePreviewListAdapter extends RecyclerView.Adapter<NotePreviewList
     @Override
     public void onBindViewHolder(@NonNull NotePreviewListAdapter.NoteViewHolder holder, int position) {
         //code to set one note preview content
-<<<<<<< Updated upstream
 
         holder.noteTotalViewTitle.setText("Prueba");
         holder.noteTotalViewBody.setText("Prueba prueba loren ipsum la xavineta xdd");
-=======
+
         Note current = mNoteList.get(position);
         holder.notePreviewTitle.setText(current.getTitulo());
         //holder.noteTotalViewBody.setText(current.getCuerpo());
@@ -78,7 +85,7 @@ public class NotePreviewListAdapter extends RecyclerView.Adapter<NotePreviewList
         int previousExpandedPosition = -1;
         //final boolean isExpanded = position==mExpandedPosition; holder.details.setVisibility(isExpanded?View.VISIBLE:View.GONE); holder.itemView.setActivated(isExpanded); if (isExpanded) previousExpandedPosition = position; holder.itemView.setOnClickListener(new View.OnClickListener() { @Override public void onClick(View v) { mExpandedPosition = isExpanded ? -1:position; notifyItemChanged(previousExpandedPosition); notifyItemChanged(position); } });
 
->>>>>>> Stashed changes
+
         /*
         BookInfo book = mBookList.get(position);
         holder.bookTitle.setText(book.getTitle());
@@ -106,6 +113,7 @@ public class NotePreviewListAdapter extends RecyclerView.Adapter<NotePreviewList
 
     @Override
     public int getItemCount() {
+        if(mNoteList == null) return 0;
         return this.mNoteList.size();
     }
 }

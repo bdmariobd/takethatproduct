@@ -1,7 +1,10 @@
 package es.ucm.fdi.takethatproduct;
 
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.loader.app.LoaderManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,44 +16,53 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import es.ucm.fdi.takethatproduct.integration.Note;
+import es.ucm.fdi.takethatproduct.integration.NoteViewModel;
+
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     private NotePreviewListAdapter notePreviewListAdapter;
     RecyclerView notePreviewListView;
+    private NoteViewModel mNoteViewModel;
+    NotePreviewListAdapter adapter;
+    private TextView mainViewInfoText;
 
     String[] orderNotesOptions = {"Alfabéticamente", "Por fecha de creación", "Recientes"};
     Spinner spin;
+
+    String optionSelected = "Alfabéticamente";
+
+    boolean boton_pulsado = true;
+    ImageButton boton_orden_notas;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        mNoteViewModel = ViewModelProviders.of(this).get(NoteViewModel.class);
+
+
+        mainViewInfoText = findViewById(R.id.mainViewInfoText);
         notePreviewListView = findViewById(R.id.notePreviewList);
-        notePreviewListAdapter = new NotePreviewListAdapter(this);
-
-        LoaderManager loaderManager = LoaderManager.getInstance(this);
+        adapter = new NotePreviewListAdapter(this);
+        notePreviewListView.setAdapter(adapter);
         notePreviewListView.setLayoutManager(new LinearLayoutManager(this));
-        notePreviewListView.setAdapter(notePreviewListAdapter);
-        if(loaderManager.getLoader(0)!=null){
-            loaderManager.initLoader(0,null,null);
-        }
-
-        List<String> dummyList = new ArrayList<String>();
-        dummyList.add("test");
-        dummyList.add("test");
-        notePreviewListAdapter.setmNoteList((ArrayList<String>) dummyList);
-        notePreviewListAdapter.notifyDataSetChanged();
-
-
-
+        mNoteViewModel.getAllNotes().observe(this, new Observer<List<Note>>() {
+            @Override
+            public void onChanged(@Nullable final List<Note> notes) {
+                // Update the cached copy of the words in the adapter.
+                adapter.setmNoteList(notes);
+                mainViewInfoText.setText("Tienes " + notes.size() + " notas");
+            }
+        });
         //Getting the instance of Spinner and applying OnItemSelectedListener on it
         //Spinner
         spin = (Spinner) findViewById(R.id.mainViewOrderNotesOptionsSpinner);
@@ -65,37 +77,97 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         boton_orden_notas = (ImageButton) findViewById(R.id.mainViewNotesOrderButton);
 
+
+        findViewById(R.id.addNoteButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Note n = new Note("Titulo de prueba", "Cuerpo de prueba");
+                mNoteViewModel.insert(n);
+            }
+        });
+
+        findViewById(R.id.deleteLastNote).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                mNoteViewModel.delete();
+            }
+        });
     }
 
-    boolean boton_pulsado = true;
-    ImageButton boton_orden_notas;
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     public void pulsado(View view) {
-        // boton_orden_notas = (ImageButton) findViewById(R.id.mainViewNotesOrderButton);
 
-        if (boton_pulsado) {
-            boton_pulsado = false;
+        // Para cambiar el tamaño de ImageButton (el padding)
+        int sizeInDp = 10;
+        float scale = getResources().getDisplayMetrics().density;
+        int dpAsPixels = (int) (sizeInDp*scale + 0.5f);
 
-            int g = boton_orden_notas.getLayoutDirection();
+        if (optionSelected == "Alfabéticamente")
+        {
+            if (boton_pulsado) {
+                boton_pulsado = false;
 
-            boton_orden_notas.setImageResource(android.R.drawable.arrow_up_float);
-            // R.drawable.z_a
+                boton_orden_notas.setImageResource(R.drawable.z_a);
+                boton_orden_notas.setPadding(dpAsPixels, dpAsPixels, dpAsPixels, dpAsPixels);
 
-            // ordenar las notas en orden inverso
-            // ...
-        } else {
-            boton_pulsado = true;
-            boton_orden_notas.setImageResource(android.R.drawable.ic_menu_sort_alphabetically);
-            //boton_orden_notas.setPadding(0, 0, 0, 0);
-            //boton_orden_notas.setScaleType(ImageView.ScaleType.FIT_CENTER);
-            //boton_orden_notas.setAdjustViewBounds(true);
+                // ordenar las notas en orden inverso
+                // ...
+            }
+            else {
+                boton_pulsado = true;
 
-            //R.drawable.a_z
+                boton_orden_notas.setImageResource(R.drawable.a_z);
+                sizeInDp = 0;
+                dpAsPixels = (int) (sizeInDp*scale + 0.5f);
+                boton_orden_notas.setPadding(dpAsPixels, dpAsPixels, dpAsPixels, dpAsPixels);
 
+                // ordenar las notas en el orden normal
+                // ...
+            }
+        }
+        else if (optionSelected == "Por fecha de creación")
+        {
+            if (boton_pulsado) {
+                boton_pulsado = false;
 
-            // ordenar las notas en el orden normal
-            // ...
+                boton_orden_notas.setImageResource(R.drawable.flecha_hacia_arriba);
+                boton_orden_notas.setPadding(dpAsPixels, dpAsPixels, dpAsPixels, dpAsPixels);
+
+                // ordenar las notas en orden inverso
+                // ...
+            }
+            else {
+                boton_pulsado = true;
+
+                boton_orden_notas.setImageResource(R.drawable.flecha_hacia_abajo);
+                boton_orden_notas.setPadding(dpAsPixels, dpAsPixels, dpAsPixels, dpAsPixels);
+
+                // ordenar las notas en el orden normal
+                // ...
+            }
+        }
+        else // "Recientes"
+        {
+            if (boton_pulsado) {
+                boton_pulsado = false;
+
+                boton_orden_notas.setImageResource(R.drawable.flecha_hacia_arriba);
+                boton_orden_notas.setPadding(dpAsPixels, dpAsPixels, dpAsPixels, dpAsPixels);
+
+                // ordenar las notas en orden inverso
+                // ...
+            }
+            else {
+                boton_pulsado = true;
+
+                boton_orden_notas.setImageResource(R.drawable.flecha_hacia_abajo);
+                boton_orden_notas.setPadding(dpAsPixels, dpAsPixels, dpAsPixels, dpAsPixels);
+
+                // ordenar las notas en el orden normal
+                // ...
+            }
         }
     }
 
@@ -107,15 +179,48 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     public void onItemSelected(AdapterView<?> arg0, View arg1, int position,long id) {
         Toast.makeText(getApplicationContext(), orderNotesOptions[position], Toast.LENGTH_LONG).show();
 
+        // Para cambiar el tamaño de ImageButton (el padding)
+        int sizeInDp = 10;
+        float scale = getResources().getDisplayMetrics().density;
+        int dpAsPixels = (int) (sizeInDp*scale + 0.5f);
 
         int Hold = spin.getSelectedItemPosition() + 1 ;
         Log.d("PRUEBA", "MENSAJE ITEM POS: " + Hold);
 
-        if (spin.getSelectedItem() == "Recientes")
+        if (spin.getSelectedItem() == "Alfabéticamente")
         {
-            //Log.d("PRUEBA", "MENSAJE NOMBRE ITEM: " + spin.getSelectedItem());
-            boton_orden_notas.setImageResource(android.R.drawable.arrow_down_float);
+            // Log.d("PRUEBA", "MENSAJE NOMBRE ITEM: " + spin.getSelectedItem());
+            optionSelected = "Alfabéticamente";
+
+            boton_orden_notas.setImageResource(R.drawable.a_z);
+            sizeInDp = 0;
+            dpAsPixels = (int) (sizeInDp*scale + 0.5f);
+            boton_orden_notas.setPadding(dpAsPixels, dpAsPixels, dpAsPixels, dpAsPixels);
+
+            // ordenar las notas en el orden normal
+            // ...
         }
+        else if (spin.getSelectedItem() == "Por fecha de creación")
+        {
+            optionSelected = "Por fecha de creación";
+
+            boton_orden_notas.setImageResource(R.drawable.flecha_hacia_abajo);
+            boton_orden_notas.setPadding(dpAsPixels, dpAsPixels, dpAsPixels, dpAsPixels);
+
+            // ordenar las notas en el orden normal
+            // ...
+        }
+        else
+        {
+            optionSelected = "Recientes";
+
+            boton_orden_notas.setImageResource(R.drawable.flecha_hacia_abajo);
+            boton_orden_notas.setPadding(dpAsPixels, dpAsPixels, dpAsPixels, dpAsPixels);
+
+            // ordenar las notas en el orden normal
+            // ...
+        }
+
     }
 
     @Override
@@ -123,5 +228,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         // TODO Auto-generated method stub
 
     }
+
 
 }
