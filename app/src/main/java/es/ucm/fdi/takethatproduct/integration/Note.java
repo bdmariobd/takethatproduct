@@ -21,7 +21,6 @@ public class Note {
 
     @ColumnInfo(name = "fechaCreacion")
     private String fechaCreacion;
-    // private long fechaCreacion;
 
     @ColumnInfo(name = "fechaModificacion")
     private String fechaModificacion;
@@ -52,29 +51,17 @@ public class Note {
         this.cuerpo = cuerpo;
     }
 
-    // public long getFechaCreacion() { return fechaCreacion; }
-    // public void setFechaCreacion(long fechaCreacion) { this.fechaCreacion = fechaCreacion; }
+    public String getFechaCreacion() { return fechaCreacion; }
 
-    public String getFechaCreacion() {
-        return fechaCreacion;
-    }
+    public void setFechaCreacion(String fechaCreacion) { this.fechaCreacion = fechaCreacion; }
 
-    public void setFechaCreacion(String fechaCreacion) {
-        this.fechaCreacion = fechaCreacion;
-    }
+    public String getFechaModificacion() { return fechaModificacion; }
 
-    public String getFechaModificacion() {
-        return fechaModificacion;
-    }
-
-    public void setFechaModificacion(String fechaModificacion) {
-        this.fechaModificacion = fechaModificacion;
-    }
+    public void setFechaModificacion(String fechaModificacion) { this.fechaModificacion = fechaModificacion; }
 
     public Note(String titulo, String cuerpo) {
         this.titulo = titulo;
         this.cuerpo = cuerpo;
-        // this.fechaCreacion = System.currentTimeMillis();
         this.fechaCreacion = new Date().toString();
         this.fechaModificacion = new Date().toString();
     }

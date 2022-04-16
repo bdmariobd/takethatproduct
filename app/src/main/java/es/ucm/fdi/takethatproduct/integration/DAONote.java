@@ -21,7 +21,7 @@ public interface DAONote {
     @Query("DELETE FROM notes where uuid = :uuid")
     void deleteOneNote(int uuid);
 
-    @Query("SELECT * from notes")
+    @Query("SELECT * FROM notes ORDER BY fechaModificacion DESC;")
     LiveData<List<Note>> getAllNotes();
 
     @Query("SELECT * FROM notes WHERE titulo LIKE :uuid ")

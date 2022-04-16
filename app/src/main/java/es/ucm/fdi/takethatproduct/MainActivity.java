@@ -171,13 +171,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         }
     }
 
-    //spin.setOnItemSelectedListener(new OnItemSelectedListener() {
-    //});
-
     //Performing action onItemSelected and onNothing selected
     @Override
     public void onItemSelected(AdapterView<?> arg0, View arg1, int position,long id) {
-        Toast.makeText(getApplicationContext(), orderNotesOptions[position], Toast.LENGTH_LONG).show();
+        //Toast.makeText(getApplicationContext(), orderNotesOptions[position], Toast.LENGTH_LONG).show();
 
         // Para cambiar el tamaño de ImageButton (el padding)
         int sizeInDp = 10;

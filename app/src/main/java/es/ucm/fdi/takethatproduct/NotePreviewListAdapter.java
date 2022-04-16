@@ -1,19 +1,16 @@
 package es.ucm.fdi.takethatproduct;
 
-import android.app.MediaRouteButton;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.transition.TransitionManager;
 
-import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import es.ucm.fdi.takethatproduct.integration.Note;
@@ -76,11 +73,13 @@ public class NotePreviewListAdapter extends RecyclerView.Adapter<NotePreviewList
         // holder.noteTotalViewBody.setText("Prueba prueba loren ipsum la xavineta xdd");
 
         Note current = mNoteList.get(position);
+
         holder.notePreviewTitle.setText(current.getTitulo());
         holder.notePreviewDescription.setText(current.getCuerpo());
-        //String formatedTime = DateFormat.getDateTimeInstance().format(current.getFechaCreacion());
-        holder.notePreviewDate.setText(current.getFechaCreacion());
 
+        SimpleDateFormat formatter = new SimpleDateFormat("HH:mm - dd/MM/yyyy");
+        String date = formatter.format(Date.parse(current.getFechaModificacion()));
+        holder.notePreviewDate.setText(date);
 
 
         /*
