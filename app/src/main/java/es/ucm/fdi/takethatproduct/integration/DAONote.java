@@ -11,20 +11,36 @@ import java.util.List;
 @Dao
 public interface DAONote {
     @Insert
-    void insert(Note note);
+    public void insert(Note note);
+
     @Update
     public void updateWords(Note... notes);
 
     @Query("DELETE FROM notes")
-    void deleteAll();
+    public void deleteAll();
 
     @Query("DELETE FROM notes where uuid = :uuid")
-    void deleteOneNote(int uuid);
+    public void deleteOneNote(int uuid);
+
+    @Query("SELECT * FROM notes ORDER BY titulo ASC, fechaModificacion DESC;")
+    public LiveData<List<Note>> getAllNotes();
+
+    @Query("SELECT * FROM notes ORDER BY titulo DESC, fechaModificacion DESC;")
+    public LiveData<List<Note>> getNotesOrderByDescTitle();
+
+    @Query("SELECT * FROM notes ORDER BY fechaCreacion DESC;")
+    public LiveData<List<Note>> getNotesOrderByDescCreationDate();
+
+    @Query("SELECT * FROM notes ORDER BY fechaCreacion ASC;")
+    public LiveData<List<Note>> getNotesOrderByAscCreationDate();
 
     @Query("SELECT * FROM notes ORDER BY fechaModificacion DESC;")
-    LiveData<List<Note>> getAllNotes();
+    public LiveData<List<Note>> getNotesOrderByDescModificationDate();
 
-    @Query("SELECT * FROM notes WHERE titulo LIKE :uuid ")
+    @Query("SELECT * FROM notes ORDER BY fechaModificacion ASC;")
+    public LiveData<List<Note>> getNotesOrderByAscModificationDate();
+
+    @Query("SELECT * FROM notes WHERE uuid LIKE :uuid ")
     public List<Note> findNotebyUuid(int uuid);
 
     @Query("SELECT * FROM notes WHERE titulo LIKE :word ")
