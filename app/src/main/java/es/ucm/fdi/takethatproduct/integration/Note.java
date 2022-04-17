@@ -4,12 +4,13 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Date;
 
 
 @Entity(tableName = "notes")
-public class Note {
+public class Note implements Serializable {
     @PrimaryKey(autoGenerate=true)
     private int uuid;
 
@@ -53,11 +54,18 @@ public class Note {
 
     public String getFechaCreacion() { return fechaCreacion; }
 
-    public void setFechaCreacion(String fechaCreacion) { this.fechaCreacion = fechaCreacion; }
+    public void setFechaCreacion(String fechaModificacion) { this.fechaModificacion = fechaModificacion; }
 
     public String getFechaModificacion() { return fechaModificacion; }
 
     public void setFechaModificacion(String fechaModificacion) { this.fechaModificacion = fechaModificacion; }
+
+    public boolean empty() {
+        boolean ret = true;
+        if(this.titulo != "" || this.cuerpo != "")
+            ret = false;
+        return ret;
+    }
 
     public Note(String titulo, String cuerpo) {
         this.titulo = titulo;

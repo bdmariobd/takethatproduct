@@ -1,5 +1,9 @@
 package es.ucm.fdi.takethatproduct;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,6 +13,7 @@ import androidx.loader.app.LoaderManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -33,6 +38,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     private NoteViewModel mNoteViewModel;
     NotePreviewListAdapter adapter;
     private TextView mainViewInfoText;
+    ActivityResultLauncher<Intent> activityResultLauncher;
 
     String[] orderNotesOptions = {"Alfabéticamente", "Por fecha de creación", "Recientes"};
     Spinner spin;
@@ -41,6 +47,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     boolean boton_pulsado = true;
     ImageButton boton_orden_notas;
+
+    private Note note;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,12 +85,28 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         boton_orden_notas = (ImageButton) findViewById(R.id.mainViewNotesOrderButton);
 
+        // Para recibir el resultado de NoteTotalViewActivity
+        activityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+            @Override
+            public void onActivityResult(ActivityResult result) {
+                if(result.getResultCode() == 0) {
+                    Intent i = result.getData();
+                    if(i != null) {
+                        note = (Note) i.getSerializableExtra("noteResult");
+                        if(!note.empty())
+                            mNoteViewModel.insert(note);
+                    }
+                }
+            }
+        });
 
         findViewById(R.id.addNoteButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Note n = new Note("Titulo de prueba", "Cuerpo de prueba");
-                mNoteViewModel.insert(n);
+                note = new Note("", "");
+                Intent i = new Intent(getApplicationContext(),NoteTotalViewActivity.class);
+                i.putExtra("note", note);
+                activityResultLauncher.launch(i);
             }
         });
 
