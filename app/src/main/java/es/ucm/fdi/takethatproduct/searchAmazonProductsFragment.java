@@ -2,9 +2,13 @@ package es.ucm.fdi.takethatproduct;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
+import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.loader.app.LoaderManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import es.ucm.fdi.takethatproduct.integration.product.ApiUtil;
 import es.ucm.fdi.takethatproduct.integration.product.Product;
@@ -114,6 +119,16 @@ public class searchAmazonProductsFragment extends Fragment {
                 else{
                     Toast.makeText(getActivity(), "No hay conexión a internet", Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+
+        view.findViewById(R.id.closeSearchFragment).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager manager = getActivity().getSupportFragmentManager();
+                FragmentTransaction trans = manager.beginTransaction();
+                trans.remove((Fragment) that);
+                trans.commit();
             }
         });
 
