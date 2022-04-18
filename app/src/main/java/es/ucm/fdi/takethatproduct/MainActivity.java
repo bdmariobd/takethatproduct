@@ -9,10 +9,8 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.loader.app.LoaderManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -24,10 +22,8 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-
 import es.ucm.fdi.takethatproduct.integration.Note;
 import es.ucm.fdi.takethatproduct.integration.NoteViewModel;
 
@@ -48,8 +44,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     boolean boton_pulsado = true;
     ImageButton boton_orden_notas;
 
-    private Note note;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,7 +54,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         mainViewInfoText = findViewById(R.id.mainViewInfoText);
         notePreviewListView = findViewById(R.id.notePreviewList);
-        adapter = new NotePreviewListAdapter(this);
+        adapter = new NotePreviewListAdapter(this, mNoteViewModel);
         notePreviewListView.setAdapter(adapter);
         notePreviewListView.setLayoutManager(new LinearLayoutManager(this));
         mNoteViewModel.getAllNotes().observe(this, new Observer<List<Note>>() {
@@ -86,39 +80,45 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         boton_orden_notas = (ImageButton) findViewById(R.id.mainViewNotesOrderButton);
 
         // Para recibir el resultado de NoteTotalViewActivity
-        activityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
-            @Override
-            public void onActivityResult(ActivityResult result) {
-                if(result.getResultCode() == 0) {
-                    Intent i = result.getData();
-                    if(i != null) {
-                        note = (Note) i.getSerializableExtra("noteResult");
-                        if(!note.empty())
-                            mNoteViewModel.insert(note);
+        activityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    if(result.getResultCode() == 0) {
+                        Intent i = result.getData();
+                        if(i != null) {
+                            Note note = (Note) i.getSerializableExtra("noteResult");
+
+                            if(!note.empty()){
+                                note.setFechaModificacion(new Date().toString());
+                                mNoteViewModel.insert(note);
+                            }
+                            else
+                                Toast.makeText(getApplicationContext(), "Nota vacía descartada", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 }
-            }
-        });
+            });
 
         findViewById(R.id.addNoteButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                note = new Note("", "");
-                Intent i = new Intent(getApplicationContext(),NoteTotalViewActivity.class);
-                i.putExtra("note", note);
-                activityResultLauncher.launch(i);
-            }
-        });
-
-        findViewById(R.id.deleteLastNote).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                mNoteViewModel.delete();
+                Note note = new Note("", "");
+                editNote(note);
             }
         });
     }
 
+    public void editNote(Note note){
+        deleteNote(note);
+        Intent i = new Intent(getApplicationContext(),NoteTotalViewActivity.class);
+        i.putExtra("note", note);
+        activityResultLauncher.launch(i);
+    }
+
+    public void deleteNote(Note note){
+        mNoteViewModel.delete(note);
+    }
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     public void pulsado(View view) {

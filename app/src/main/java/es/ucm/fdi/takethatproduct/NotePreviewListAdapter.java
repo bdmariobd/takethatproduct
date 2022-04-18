@@ -1,19 +1,20 @@
 package es.ucm.fdi.takethatproduct;
 
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.PopupMenu;
 import android.widget.TextView;
-
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 import es.ucm.fdi.takethatproduct.integration.Note;
+import es.ucm.fdi.takethatproduct.integration.NoteViewModel;
 
 public class NotePreviewListAdapter extends RecyclerView.Adapter<NotePreviewListAdapter.NoteViewHolder> {
 
@@ -21,6 +22,7 @@ public class NotePreviewListAdapter extends RecyclerView.Adapter<NotePreviewList
     private List<Note> mNoteList;
     private final LayoutInflater mInflater;
     private final MainActivity context;
+    private NoteViewModel mNoteViewModel;
 
     public void setmNoteList(List<Note> mNoteList){
         this.mNoteList = mNoteList;
@@ -32,9 +34,10 @@ public class NotePreviewListAdapter extends RecyclerView.Adapter<NotePreviewList
         notifyDataSetChanged();
     }
 
-    public NotePreviewListAdapter(MainActivity context) {
+    public NotePreviewListAdapter(MainActivity context, NoteViewModel nvm) {
         this.context = context;
         this.mInflater = LayoutInflater.from(context);
+        this.mNoteViewModel = nvm;
     }
 
     class NoteViewHolder extends RecyclerView.ViewHolder {
@@ -66,11 +69,8 @@ public class NotePreviewListAdapter extends RecyclerView.Adapter<NotePreviewList
     }
 
     @Override
-    public void onBindViewHolder(@NonNull NotePreviewListAdapter.NoteViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull NoteViewHolder holder, int position) {
         //code to set one note preview content
-
-        // holder.noteTotalViewTitle.setText("Prueba");
-        // holder.noteTotalViewBody.setText("Prueba prueba loren ipsum la xavineta xdd");
 
         Note current = mNoteList.get(position);
 
@@ -81,6 +81,34 @@ public class NotePreviewListAdapter extends RecyclerView.Adapter<NotePreviewList
         String date = formatter.format(Date.parse(current.getFechaModificacion()));
         holder.notePreviewDate.setText(date);
 
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                context.editNote(current);
+            }
+        });
+
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+           @Override
+           public boolean onLongClick(View view) {
+               PopupMenu menu = new PopupMenu(context, view);
+               menu.getMenu().add("Borrar");
+               menu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                   @Override
+                   public boolean onMenuItemClick(MenuItem menuItem) {
+                       if(menuItem.getTitle().equals("Borrar")){
+                           context.deleteNote(current);
+                           Toast.makeText(context, "Borrado", Toast.LENGTH_SHORT).show();
+                       }
+
+                       return true;
+                   }
+               });
+               menu.show();
+
+               return true;
+           }
+       });
 
         /*
         BookInfo book = mBookList.get(position);

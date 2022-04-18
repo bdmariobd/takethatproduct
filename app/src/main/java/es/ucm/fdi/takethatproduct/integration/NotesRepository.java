@@ -59,9 +59,8 @@ public class NotesRepository {
         }
     }
 
-
-    public void delete () {
-        new DeleteAsyncTask(mNoteDao).execute();
+    public void delete (Note note) {
+        new DeleteAsyncTask(mNoteDao).execute(note);
     }
 
     private static class DeleteAsyncTask extends AsyncTask<Note, Void, Void> {
@@ -74,7 +73,7 @@ public class NotesRepository {
 
         @Override
         protected Void doInBackground(final Note... params) {
-            mAsyncTaskDao.deleteAll();
+            mAsyncTaskDao.deleteOneNote(params[0].getUuid());
             return null;
         }
     }
