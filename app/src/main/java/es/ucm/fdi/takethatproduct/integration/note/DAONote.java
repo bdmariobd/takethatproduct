@@ -1,4 +1,4 @@
-package es.ucm.fdi.takethatproduct.integration;
+package es.ucm.fdi.takethatproduct.integration.note;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;

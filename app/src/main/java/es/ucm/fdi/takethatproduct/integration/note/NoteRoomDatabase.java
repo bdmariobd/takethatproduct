@@ -1,4 +1,4 @@
-package es.ucm.fdi.takethatproduct.integration;
+package es.ucm.fdi.takethatproduct.integration.note;
 
 import android.content.Context;
 import android.os.AsyncTask;

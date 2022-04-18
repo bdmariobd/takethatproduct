@@ -24,8 +24,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import java.util.Date;
 import java.util.List;
-import es.ucm.fdi.takethatproduct.integration.Note;
-import es.ucm.fdi.takethatproduct.integration.NoteViewModel;
+import es.ucm.fdi.takethatproduct.integration.note.Note;
+import es.ucm.fdi.takethatproduct.integration.note.NoteViewModel;
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
