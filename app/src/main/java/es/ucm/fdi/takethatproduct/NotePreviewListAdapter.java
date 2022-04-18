@@ -13,8 +13,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import es.ucm.fdi.takethatproduct.integration.Note;
-import es.ucm.fdi.takethatproduct.integration.NoteViewModel;
+import es.ucm.fdi.takethatproduct.integration.note.Note;
+import es.ucm.fdi.takethatproduct.integration.note.NoteViewModel;
 
 public class NotePreviewListAdapter extends RecyclerView.Adapter<NotePreviewListAdapter.NoteViewHolder> {
 
