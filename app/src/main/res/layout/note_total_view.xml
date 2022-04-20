@@ -124,6 +124,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@+id/noteTotalViewBarWithButtons"
         app:layout_constraintTop_toTopOf="@+id/noteTotalViewBody"
-        tools:layout_editor_absoluteX="203dp" />
+        tools:layout_editor_absoluteX="203dp"
+        tools:ignore="MissingConstraints" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
