@@ -26,7 +26,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
     private final LayoutInflater mInflater;
     private final Activity context;
 
-    public void setmBookList(ArrayList<Product> mBookList){
+    public void setmProductList(ArrayList<Product> mProductList){
         this.mProductList = mProductList;
     }
 

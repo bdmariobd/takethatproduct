@@ -51,10 +51,13 @@ public class NoteTotalViewActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 FragmentManager fragmentManager = getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                searchAmazonProductsFragment fragment = new searchAmazonProductsFragment();
-                fragmentTransaction.add(R.id.searchProductsFragmentContainer, fragment);
-                fragmentTransaction.commit();
+                if (fragmentManager.getFragments() ==null || fragmentManager.getFragments().size()==0){
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    searchAmazonProductsFragment fragment = new searchAmazonProductsFragment();
+                    fragmentTransaction.add(R.id.searchProductsFragmentContainer, fragment);
+                    fragmentTransaction.commit();
+                }
+
             }
         });
     }

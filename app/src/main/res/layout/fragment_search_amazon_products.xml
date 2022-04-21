@@ -19,7 +19,7 @@
             android:layout_height="wrap_content">
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/floatingActionButton"
+                android:id="@+id/closeSearchFragment"
                 android:layout_width="325dp"
                 android:layout_height="wrap_content"
                 android:clickable="true"
@@ -42,8 +42,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
-                android:inputType="text"
-                android:text="@string/searchProducts" />
+                android:hint="@string/searchProducts"
+                android:inputType="text" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/searchProduct"
