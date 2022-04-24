@@ -13,10 +13,13 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.Spannable;
+import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
+import android.text.style.DynamicDrawableSpan;
 import android.text.style.ImageSpan;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.io.FileNotFoundException;
@@ -28,6 +31,8 @@ public class NoteTotalViewActivity extends AppCompatActivity {
 
     EditText noteText;
     Bitmap bitmap = null;
+    String titulo;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +49,7 @@ public class NoteTotalViewActivity extends AppCompatActivity {
             getSupportFragmentManager().beginTransaction().remove(fragment).commit();
         }
 
+        titulo = getIntent().getExtras().getString("Titulo");
 
 
         findViewById(R.id.noteTotalViewBack).setOnClickListener(new View.OnClickListener() {
@@ -95,6 +101,9 @@ public class NoteTotalViewActivity extends AppCompatActivity {
                 builder.append(noteText.getText().toString()==null?" ":noteText.getText().toString());
                 builder.setSpan(new ImageSpan(this, bitmap), builder.length() - 1, builder.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 noteText.setText(builder);
+
+                noteText.setText(noteText.length(), TextView.BufferType.valueOf(titulo));
+
             } catch (FileNotFoundException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
@@ -107,4 +116,19 @@ public class NoteTotalViewActivity extends AppCompatActivity {
             }
         }
     }
+
+    /*public void addProduct(String productTitle, ImageView productImage)
+    {
+        // SpannableString string = new SpannableString("Bottom: span.\nBaseline: span.");
+        // string.setSpan(new ImageSpan(this, R.mipmap.ic_launcher), 7, 8, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        // string.setSpan(new ImageSpan(this, R.mipmap.ic_launcher, DynamicDrawableSpan.ALIGN_BASELINE),
+        //        22, 23, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        SpannableStringBuilder builder = new SpannableStringBuilder();
+        builder.append(productTitle);
+        //noteText.setText(builder);
+        startActivityForResult(new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI), 10);
+
+        return builder;
+    }*/
+
 }

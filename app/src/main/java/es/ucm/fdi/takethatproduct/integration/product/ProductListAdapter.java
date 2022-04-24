@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -19,7 +20,9 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
+import es.ucm.fdi.takethatproduct.NoteTotalViewActivity;
 import es.ucm.fdi.takethatproduct.R;
+import es.ucm.fdi.takethatproduct.integration.note.Note;
 
 public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.ProductViewHolder> {
     private ArrayList<Product> mProductList;
@@ -41,11 +44,13 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
         final ProductListAdapter mAdapter;
         public final TextView productTitle;
         public final ImageView productImage;
+        public final Button addProduct;
         public final View itemView;
         public ProductViewHolder(View itemView, ProductListAdapter adapter) {
             super(itemView);
             productTitle = itemView.findViewById(R.id.productTitle);
             productImage = itemView.findViewById(R.id.productImage);
+            addProduct = itemView.findViewById(R.id.addProduct);
             this.mAdapter = adapter;
             this.itemView = itemView;
         }
@@ -77,6 +82,18 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
                 context.startActivity(browserIntent);
             }
         });
+
+        holder.addProduct.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), NoteTotalViewActivity.class);
+                intent.putExtra("Titulo", holder.productTitle.toString());
+                intent.putExtra("Imagen", String.valueOf(holder.productImage)); // CAMBIAR
+                v.getContext().startActivity(intent);
+            }
+        });
+
+
         //https://github.com/bumptech/glide
         Glide.with(context)
                 .load(product.getUrlImagen().toString())
