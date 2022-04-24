@@ -1,4 +1,4 @@
-package es.ucm.fdi.takethatproduct.integration.note;
+package es.ucm.fdi.takethatproduct.integration.product;
 
 import android.app.Application;
 import android.os.AsyncTask;
@@ -6,6 +6,10 @@ import android.os.AsyncTask;
 import androidx.lifecycle.LiveData;
 
 import java.util.List;
+
+import es.ucm.fdi.takethatproduct.integration.databasemanagement.NoteRoomDatabase;
+import es.ucm.fdi.takethatproduct.integration.note.DAONote;
+import es.ucm.fdi.takethatproduct.integration.note.Note;
 
 public class NotesRepository {
 
@@ -17,7 +21,7 @@ public class NotesRepository {
     private LiveData<List<Note>> mNotesByDescModificationDate;
     private LiveData<List<Note>> mNotesByAscModificationDate;
 
-    NotesRepository(Application application) {
+    public NotesRepository(Application application) {
         NoteRoomDatabase db = NoteRoomDatabase.getDatabase(application);
         mNoteDao = db.NoteDao();
         mAllNotes = mNoteDao.getAllNotes();

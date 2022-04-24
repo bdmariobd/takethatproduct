@@ -7,6 +7,8 @@ import androidx.lifecycle.LiveData;
 
 import java.util.List;
 
+import es.ucm.fdi.takethatproduct.integration.product.NotesRepository;
+
 public class NoteViewModel extends AndroidViewModel {
 
     private NotesRepository mRepository;
