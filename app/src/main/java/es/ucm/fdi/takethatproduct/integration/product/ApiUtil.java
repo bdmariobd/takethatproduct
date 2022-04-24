@@ -33,6 +33,7 @@ public class ApiUtil {
 
         List<Product> products = new ArrayList<Product>();
 
+        /*
         try {
             Uri builtURI = Uri.parse(ENDPOINT_URL).buildUpon()
                     .appendQueryParameter(QUERY_PARAM, queryString)
@@ -81,6 +82,21 @@ public class ApiUtil {
         Log.d(ApiUtil.class.getSimpleName(), productJSONString);
 
         JSONArray results = new JSONArray(productJSONString);
+        */
+
+        // PROVISIONAL
+        String jsonString =
+                "[{\"title\":\"NIVEA Essentially Enriched Body Lotion for Dry Skin, Pack of 2, 16.9 Fl Oz Pump Bottles\",";
+        jsonString += "\"imageUrl\":\"https://m.media-amazon.com/images/I/51C+9Ww5AaL._AC_UL320_.jpg\",";
+        jsonString += "\"productUrl\":\"https://www.amazon.com/NIVEA-Essentially-Enriched-Lotion-Fluid/dp/B076G2XGY3/ref=sr_1_2?keywords=nivea&qid=1650795772&sr=8-2\",";
+        jsonString += "\"prices\":[{\"price\":13.2,\"label\":null}]},";
+        jsonString += "{\"title\":\"(3 Pack) Nivea Moisturizing Creme 13.5 oz/ 382g Glass Jar in Package Fresh and Authentic! Unisex.\",";
+        jsonString += "\"imageUrl\":\"https://m.media-amazon.com/images/I/41FqeBA1DNL._AC_UL320_.jpg\",";
+        jsonString += "\"productUrl\":\"https://www.amazon.com/Nivea-Moisturizing-Package-Authentic-Unisex/dp/B018I0W8Q2/ref=sr_1_6?keywords=nivea&qid=1650795772&sr=8-6\",";
+        jsonString += "\"prices\":[{\"price\":35.17,\"label\":null}]}]";
+
+        JSONArray results = new JSONArray(jsonString);
+        // FIN PROVISIONAL
 
         for(int i = 0 ; i<results.length(); ++i){
             products.add(Product.fromJSONObject(results.getJSONObject(i)));
