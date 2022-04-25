@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -22,7 +23,6 @@ import java.util.ArrayList;
 
 import es.ucm.fdi.takethatproduct.NoteTotalViewActivity;
 import es.ucm.fdi.takethatproduct.R;
-import es.ucm.fdi.takethatproduct.integration.note.Note;
 
 public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.ProductViewHolder> {
     private ArrayList<Product> mProductList;
@@ -43,12 +43,14 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
 
         final ProductListAdapter mAdapter;
         public final TextView productTitle;
+        public final TextView precio;
         public final ImageView productImage;
         public final Button addProduct;
         public final View itemView;
         public ProductViewHolder(View itemView, ProductListAdapter adapter) {
             super(itemView);
             productTitle = itemView.findViewById(R.id.productTitle);
+            precio = itemView.findViewById(R.id.priceLabel);
             productImage = itemView.findViewById(R.id.productImage);
             addProduct = itemView.findViewById(R.id.addProduct);
             this.mAdapter = adapter;
@@ -74,6 +76,9 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
         //https://stackoverflow.com/questions/2394935/can-i-underline-text-in-an-android-layout
         holder.productTitle.setPaintFlags(holder.productTitle.getPaintFlags() |   Paint.UNDERLINE_TEXT_FLAG);
         //holder.bookAuthor.setText(book.getAuthors());
+
+        holder.precio.setText(String.valueOf(product.getPrecio()));
+
         holder.productTitle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -86,10 +91,15 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
         holder.addProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                /*
                 Intent intent = new Intent(v.getContext(), NoteTotalViewActivity.class);
                 intent.putExtra("Titulo", holder.productTitle.toString());
-                intent.putExtra("Imagen", String.valueOf(holder.productImage)); // CAMBIAR
+                //intent.putExtra("Imagen", String.valueOf(holder.productImage)); // CAMBIAR
                 v.getContext().startActivity(intent);
+                */
+                EditText bodyNote;
+                bodyNote = holder.itemView.findViewById(R.id.noteTotalViewBody);
+                //String datos =
             }
         });
 
@@ -101,6 +111,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
                 .placeholder(android.R.drawable.ic_menu_report_image)
                 .into(holder.productImage);
     }
+
 
     @Override
     public int getItemCount() {

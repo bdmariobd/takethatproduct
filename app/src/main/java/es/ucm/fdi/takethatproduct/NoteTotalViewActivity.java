@@ -17,6 +17,7 @@ import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.text.style.DynamicDrawableSpan;
 import android.text.style.ImageSpan;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -26,6 +27,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import es.ucm.fdi.takethatproduct.integration.note.Note;
+import es.ucm.fdi.takethatproduct.integration.product.ProductListAdapter;
 
 public class NoteTotalViewActivity extends AppCompatActivity {
 
@@ -42,15 +44,18 @@ public class NoteTotalViewActivity extends AppCompatActivity {
         EditText titleInput = findViewById(R.id.noteTotalViewTitle);
         noteText = findViewById(R.id.noteTotalViewBody);
         View searchProductsContainer = findViewById(R.id.searchProductsFragmentContainer);
+        //if (note != null) {
         titleInput.setText(note.getTitulo(), TextView.BufferType.EDITABLE);
+        //titleInput.setText((note.getTitulo() == null ? " " : note.getTitulo()), TextView.BufferType.EDITABLE);
         noteText.setText(note.getCuerpo(), TextView.BufferType.EDITABLE);
-
+        //}
         for (Fragment fragment : getSupportFragmentManager().getFragments()) {
             getSupportFragmentManager().beginTransaction().remove(fragment).commit();
         }
 
-        titulo = getIntent().getExtras().getString("Titulo");
 
+        //titulo = getIntent().getExtras().getString("Titulo");
+        // noteText.setText(noteText.length(), TextView.BufferType.valueOf(titulo));
 
         findViewById(R.id.noteTotalViewBack).setOnClickListener(new View.OnClickListener() {
 
@@ -115,6 +120,25 @@ public class NoteTotalViewActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
+
+
+        if (requestCode == 1) { // el "1" es el numero que pasaste como parametro
+            if(resultCode == Activity.RESULT_OK){
+                String result=data.getStringExtra("titulo");
+                // tu codigo para continuar procesando
+                noteText.setText(result); // CAMBIAR
+            }
+            if (resultCode == Activity.RESULT_CANCELED) {
+                // código si no hay resultado
+                Log.d("1", "ERROR");
+            }
+        }
+
+    }
+
+    public void segunda_pantalla(View view){
+        Intent i=new Intent(this, ProductListAdapter.class);
+        startActivityForResult(i, 1);
     }
 
     /*public void addProduct(String productTitle, ImageView productImage)
