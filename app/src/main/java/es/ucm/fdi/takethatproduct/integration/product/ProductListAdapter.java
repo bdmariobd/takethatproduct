@@ -43,14 +43,14 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
 
         final ProductListAdapter mAdapter;
         public final TextView productTitle;
-        public final TextView precio;
+        public final TextView productPrecio;
         public final ImageView productImage;
         public final Button addProduct;
         public final View itemView;
         public ProductViewHolder(View itemView, ProductListAdapter adapter) {
             super(itemView);
             productTitle = itemView.findViewById(R.id.productTitle);
-            precio = itemView.findViewById(R.id.priceLabel);
+            productPrecio = itemView.findViewById(R.id.priceLabel);
             productImage = itemView.findViewById(R.id.productImage);
             addProduct = itemView.findViewById(R.id.addProduct);
             this.mAdapter = adapter;
@@ -77,7 +77,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
         holder.productTitle.setPaintFlags(holder.productTitle.getPaintFlags() |   Paint.UNDERLINE_TEXT_FLAG);
         //holder.bookAuthor.setText(book.getAuthors());
 
-        holder.precio.setText(String.valueOf(product.getPrecio()));
+        holder.productPrecio.setText( " "+String.valueOf(product.getPrecio()) + " €");
 
         holder.productTitle.setOnClickListener(new View.OnClickListener() {
             @Override
