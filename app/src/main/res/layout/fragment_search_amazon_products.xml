@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFFFF"
     android:visibility="visible"
     tools:context=".searchAmazonProductsFragment">
 
@@ -30,7 +31,7 @@
                 android:layout_height="wrap_content"
                 android:clickable="true"
                 android:src="@android:drawable/ic_menu_close_clear_cancel"
-                app:backgroundTint="#FFFFFF"
+                app:backgroundTint="#FB5050"
                 app:backgroundTintMode="src_in"
                 app:fabSize="normal"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -42,6 +43,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="#EDEDED"
             android:orientation="horizontal">
 
             <EditText
@@ -59,11 +61,12 @@
                 android:layout_height="wrap_content"
 
                 android:layout_weight="1"
+                android:background="#EDEDED"
                 android:clickable="true"
                 android:contentDescription="@string/app_name"
                 android:src="?android:attr/actionModeWebSearchDrawable"
                 android:tint="@color/white"
-                app:backgroundTint="@color/white"
+                app:backgroundTint="#03A9F4"
                 app:fabSize="normal"
                 app:useCompatPadding="true"
                 tools:ignore="NewApi" />
@@ -72,7 +75,8 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/productList"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:background="#EDEDED" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

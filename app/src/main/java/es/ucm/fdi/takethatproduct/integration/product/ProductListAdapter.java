@@ -97,9 +97,6 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
                 //intent.putExtra("Imagen", String.valueOf(holder.productImage)); // CAMBIAR
                 v.getContext().startActivity(intent);
                 */
-                EditText bodyNote;
-                bodyNote = holder.itemView.findViewById(R.id.noteTotalViewBody);
-                //String datos =
             }
         });
 

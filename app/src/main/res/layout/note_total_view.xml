@@ -25,18 +25,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageButton
-        android:id="@+id/noteTotalViewFavoriteButton"
-        android:layout_width="51dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="28dp"
-        android:layout_marginEnd="19dp"
-        android:layout_marginRight="19dp"
-        android:background="#FFFFFF"
-        app:layout_constraintEnd_toStartOf="@+id/noteTotalViewMoreOptionsButton"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/btn_star_big_off" />
-
     <LinearLayout
         android:id="@+id/noteTotalViewBarWithButtons"
         android:layout_width="381dp"
@@ -100,13 +88,16 @@
         android:id="@+id/noteTotalViewTitle"
         android:layout_width="149dp"
         android:layout_height="57dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
+        android:layout_marginStart="52dp"
+        android:layout_marginLeft="52dp"
         android:layout_marginTop="24dp"
+        android:layout_marginEnd="56dp"
+        android:layout_marginRight="56dp"
         android:ems="10"
         android:hint="Título"
         android:inputType="textPersonName"
         android:textSize="34sp"
+        app:layout_constraintEnd_toStartOf="@+id/noteTotalViewMoreOptionsButton"
         app:layout_constraintStart_toEndOf="@+id/noteTotalViewBack"
         app:layout_constraintTop_toTopOf="parent" />
 

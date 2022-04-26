@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.ParcelFileDescriptor;
 import android.provider.MediaStore;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -26,6 +27,7 @@ import android.widget.TextView;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.FileDescriptor;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.regex.Matcher;
@@ -40,6 +42,7 @@ public class NoteTotalViewActivity extends AppCompatActivity {
     EditText noteText;
     Bitmap bitmap = null;
     String titulo;
+    private ParcelFileDescriptor inputPFD;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +53,6 @@ public class NoteTotalViewActivity extends AppCompatActivity {
         EditText titleInput = findViewById(R.id.noteTotalViewTitle);
         noteText = findViewById(R.id.noteTotalViewBody);
         View searchProductsContainer = findViewById(R.id.searchProductsFragmentContainer);
-        //if (note != null) {
         titleInput.setText(note.getTitulo(), TextView.BufferType.EDITABLE);
 
         String cuerpo = note.getCuerpo();
@@ -75,10 +77,6 @@ public class NoteTotalViewActivity extends AppCompatActivity {
         for (Fragment fragment : getSupportFragmentManager().getFragments()) {
             getSupportFragmentManager().beginTransaction().remove(fragment).commit();
         }
-
-
-        //titulo = getIntent().getExtras().getString("Titulo");
-        // noteText.setText(noteText.length(), TextView.BufferType.valueOf(titulo));
 
         findViewById(R.id.noteTotalViewBack).setOnClickListener(new View.OnClickListener() {
 
@@ -135,6 +133,8 @@ public class NoteTotalViewActivity extends AppCompatActivity {
             Uri selectedImage = data.getData();
 
             try {
+                //inputPFD = getContentResolver().openFileDescriptor(selectedImage, "r");
+                //FileDescriptor fd = inputPFD.getFileDescriptor();
                 replaceByImage(noteText.getSelectionStart(), noteText.getSelectionEnd(), selectedImage);
             } catch (FileNotFoundException e) {
                 // TODO Auto-generated catch block
@@ -146,40 +146,9 @@ public class NoteTotalViewActivity extends AppCompatActivity {
             catch (Exception e){
                 e.printStackTrace();
             }
-        }
 
-
-        if (requestCode == 1) { // el "1" es el numero que pasaste como parametro
-            if(resultCode == Activity.RESULT_OK){
-                String result=data.getStringExtra("titulo");
-                // tu codigo para continuar procesando
-                noteText.setText(result); // CAMBIAR
-            }
-            if (resultCode == Activity.RESULT_CANCELED) {
-                // código si no hay resultado
-                Log.d("1", "ERROR");
-            }
         }
 
     }
-
-    public void segunda_pantalla(View view){
-        Intent i=new Intent(this, ProductListAdapter.class);
-        startActivityForResult(i, 1);
-    }
-
-    /*public void addProduct(String productTitle, ImageView productImage)
-    {
-        // SpannableString string = new SpannableString("Bottom: span.\nBaseline: span.");
-        // string.setSpan(new ImageSpan(this, R.mipmap.ic_launcher), 7, 8, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        // string.setSpan(new ImageSpan(this, R.mipmap.ic_launcher, DynamicDrawableSpan.ALIGN_BASELINE),
-        //        22, 23, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        SpannableStringBuilder builder = new SpannableStringBuilder();
-        builder.append(productTitle);
-        //noteText.setText(builder);
-        startActivityForResult(new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI), 10);
-
-        return builder;
-    }*/
 
 }

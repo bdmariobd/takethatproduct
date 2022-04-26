@@ -25,6 +25,7 @@
                 android:layout_width="98dp"
                 android:layout_height="match_parent"
                 android:layout_weight=".25"
+                android:background="#CBFFCD"
                 app:srcCompat="@android:drawable/ic_menu_report_image" />
 
             <LinearLayout
@@ -38,6 +39,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="108dp"
                     android:layout_weight="1"
+                    android:background="#CBFFCD"
                     android:text="TextView"
                     android:textAppearance="@style/TextAppearance.AppCompat.Display1"
                     android:textSize="20dp" />
@@ -53,6 +55,7 @@
                         android:layout_width="262dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
+                        android:background="#CBFFCD"
                         android:text="TextView" />
 
                     <Button
@@ -60,6 +63,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight=".5"
+                        android:background="#CBFFCD"
                         android:text="Add"
                         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                         android:textSize="8dp" />
