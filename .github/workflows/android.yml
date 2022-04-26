@@ -10,7 +10,8 @@ jobs:
   apk:
     name: Generate the apk file
     runs-on: ubuntu-latest
-
+    outputs:
+      version: ${{ steps.getVersion.outputs.version }}
     steps:
     - uses: actions/checkout@v3
     - name: set up JDK 11
@@ -19,7 +20,6 @@ jobs:
         java-version: '11'
         distribution: 'temurin'
         cache: gradle
-
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
     - name: Build with Gradle
@@ -29,7 +29,9 @@ jobs:
       with:
         name: apk
         path: app/build/outputs/apk/debug/app-debug.apk
-
+    - name: Get app version
+      id: getVersion
+      run: echo "::set-output name=version::$(./gradlew printVersionName)"
 
   release:
     name: Release the apk
@@ -46,8 +48,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
+          tag_name: ${{ needs.job1.outputs.version }}
+          release_name: Release ${{ needs.job1.outputs.version }}
       - name: Upload Release APK
         id: upload_release_asset
         uses: actions/upload-release-asset@v1.0.1
