@@ -13,6 +13,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import es.ucm.fdi.takethatproduct.integration.image.Image;
 import es.ucm.fdi.takethatproduct.integration.note.Note;
 import es.ucm.fdi.takethatproduct.integration.note.NoteViewModel;
 
@@ -75,7 +77,8 @@ public class NotePreviewListAdapter extends RecyclerView.Adapter<NotePreviewList
         Note current = mNoteList.get(position);
 
         holder.notePreviewTitle.setText(current.getTitulo());
-        holder.notePreviewDescription.setText(current.getCuerpo());
+        String cleanNoteBody = Image.bodyWithOutJsonImage(current.getCuerpo());
+        holder.notePreviewDescription.setText(cleanNoteBody);
 
         SimpleDateFormat formatter = new SimpleDateFormat("HH:mm - dd/MM/yyyy");
         String date = formatter.format(Date.parse(current.getFechaModificacion()));
