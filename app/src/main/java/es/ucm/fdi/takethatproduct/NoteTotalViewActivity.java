@@ -65,7 +65,7 @@ public class NoteTotalViewActivity extends AppCompatActivity {
             matcher.replaceFirst("");
             try {
                 JSONObject jsonimage = new JSONObject(matcher.group());
-                replaceByImage(matcher.start(), matcher.end(),Uri.parse(jsonimage.getString("uri")));
+                replaceByImage(matcher.start(), matcher.end(),jsonimage.getString("uri"));
             } catch (JSONException | IOException e) {
                 e.printStackTrace();
             }
@@ -112,7 +112,6 @@ public class NoteTotalViewActivity extends AppCompatActivity {
                 }
                 else{
                     startActivityForResult(new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI), 10);
-
                 }
             }
         });
@@ -132,15 +131,15 @@ public class NoteTotalViewActivity extends AppCompatActivity {
     }
 
 
-    public void replaceByImage(int start, int end, Uri imageUrl) throws JSONException, IOException {
-        String JsonImage = Image.imageToJson(imageUrl.toString());
-        Bitmap bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(imageUrl));
+    public void replaceByImage(int start, int end, String path) throws JSONException, IOException {
+        String JsonImage = Image.imageToJson(path);
+        Bitmap bitmap = BitmapFactory.decodeFile(path);
         SpannableStringBuilder builder = new SpannableStringBuilder();
         String text = noteText.getText().toString();
-        builder.append(text.substring(0,noteText.getSelectionStart()));
+        builder.append(text.substring(0,start));
         builder.append(JsonImage);
-        builder.setSpan(new ImageSpan(this, bitmap), noteText.getSelectionStart(), builder.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        builder.append(text.substring(noteText.getSelectionEnd(), text.length()));
+        builder.setSpan(new ImageSpan(this, bitmap), start, builder.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        builder.append(text.substring(end, text.length()));
         noteText.setText(builder);
     }
     @Override
@@ -153,7 +152,7 @@ public class NoteTotalViewActivity extends AppCompatActivity {
             Uri selectedImage = data.getData();
 
             try {
-                replaceByImage(noteText.getSelectionStart(), noteText.getSelectionEnd(), selectedImage);
+                replaceByImage(noteText.getSelectionStart(), noteText.getSelectionEnd(), Image.getImagePathFromUri(selectedImage,getContentResolver()));
             } catch (FileNotFoundException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();

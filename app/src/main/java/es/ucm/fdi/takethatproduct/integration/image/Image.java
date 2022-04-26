@@ -1,5 +1,9 @@
 package es.ucm.fdi.takethatproduct.integration.image;
 
+import android.content.ContentResolver;
+import android.database.Cursor;
+import android.net.Uri;
+
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -25,6 +29,21 @@ public class Image {
         //https://stackoverflow.com/questions/5633533/regular-expression-for-matching-parentheses
         String cleaned = body.replaceAll("[\\{].*[\\}]", "");
         return cleaned;
+    }
+
+    public static String getImagePathFromUri(Uri uri, ContentResolver contentResolver){
+        String result;
+        Cursor cursor = contentResolver.query(uri,null,null,null,null);
+        if(cursor == null){
+            result = uri.getPath();
+        }
+        else{
+            cursor.moveToFirst();
+            int index = cursor.getColumnIndex("_data");
+            result = cursor.getString(index);
+            cursor.close();
+        }
+        return result;
     }
 
 }
