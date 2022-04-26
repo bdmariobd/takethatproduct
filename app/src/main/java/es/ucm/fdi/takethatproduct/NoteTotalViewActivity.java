@@ -1,14 +1,20 @@
 package es.ucm.fdi.takethatproduct;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentContainer;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -18,7 +24,9 @@ import android.text.style.ImageSpan;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -33,7 +41,6 @@ import es.ucm.fdi.takethatproduct.integration.note.Note;
 public class NoteTotalViewActivity extends AppCompatActivity {
 
     EditText noteText;
-    Bitmap bitmap = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -100,14 +107,34 @@ public class NoteTotalViewActivity extends AppCompatActivity {
         findViewById(R.id.noteTotalViewAddElementsButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivityForResult(new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI), 10);
+                if(ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED){
+                    ActivityCompat.requestPermissions(NoteTotalViewActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 20);
+                }
+                else{
+                    startActivityForResult(new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI), 10);
+
+                }
             }
         });
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull @NotNull String[] permissions, @NonNull @NotNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if(requestCode == 20 && grantResults.length>0){
+            if(grantResults[0]==PackageManager.PERMISSION_GRANTED){
+                startActivityForResult(new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI), 10);
+            }
+            else {
+                Toast.makeText(getApplicationContext(), "No tenemos permiso :(", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+
     public void replaceByImage(int start, int end, Uri imageUrl) throws JSONException, IOException {
         String JsonImage = Image.imageToJson(imageUrl.toString());
-        bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUrl);
+        Bitmap bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(imageUrl));
         SpannableStringBuilder builder = new SpannableStringBuilder();
         String text = noteText.getText().toString();
         builder.append(text.substring(0,noteText.getSelectionStart()));
@@ -119,6 +146,7 @@ public class NoteTotalViewActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
 
         //Detects request codes
         if(requestCode==10 && resultCode == Activity.RESULT_OK) {
