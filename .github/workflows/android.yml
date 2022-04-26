@@ -31,10 +31,15 @@ jobs:
       with:
         name: apk
         path: app/build/outputs/apk/debug/app-debug.apk
-    - name: Get app version
+    - name: Get apk info
+      id: apk-info
+      uses: hkusu/apk-info-action@v1
+      with:
+        apk-path: app/build/outputs/apk/debug/app-debug.apk
+    - name: Export apk info
       id: getVersion
       run: |
-        echo "::set-output name=version::$(./gradlew printVersionName)"
+        echo "::set-output name=version::${{ steps.apk-info.outputs.version-name }}"
 
   release:
     name: Release the apk
