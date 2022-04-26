@@ -19,9 +19,15 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
+import es.ucm.fdi.takethatproduct.integration.image.Image;
 import es.ucm.fdi.takethatproduct.integration.note.Note;
 
 public class NoteTotalViewActivity extends AppCompatActivity {
@@ -38,7 +44,25 @@ public class NoteTotalViewActivity extends AppCompatActivity {
         noteText = findViewById(R.id.noteTotalViewBody);
         View searchProductsContainer = findViewById(R.id.searchProductsFragmentContainer);
         titleInput.setText(note.getTitulo(), TextView.BufferType.EDITABLE);
+
+        String cuerpo = note.getCuerpo();
         noteText.setText(note.getCuerpo(), TextView.BufferType.EDITABLE);
+
+        Pattern pattern = Pattern.compile("[\\{].*[\\}]");
+        Matcher matcher = pattern.matcher(cuerpo);
+        // Check all occurrences
+        while (matcher.find()) {
+            System.out.print("Start index: " + matcher.start());
+            System.out.print(" End index: " + matcher.end());
+            System.out.println(" Found: " + matcher.group());
+            matcher.replaceFirst("");
+            try {
+                JSONObject jsonimage = new JSONObject(matcher.group());
+                replaceByImage(matcher.start(), matcher.end(),Uri.parse(jsonimage.getString("uri")));
+            } catch (JSONException | IOException e) {
+                e.printStackTrace();
+            }
+        }
 
         for (Fragment fragment : getSupportFragmentManager().getFragments()) {
             getSupportFragmentManager().beginTransaction().remove(fragment).commit();
@@ -80,21 +104,28 @@ public class NoteTotalViewActivity extends AppCompatActivity {
             }
         });
     }
+
+    public void replaceByImage(int start, int end, Uri imageUrl) throws JSONException, IOException {
+        String JsonImage = Image.imageToJson(imageUrl.toString());
+        bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUrl);
+        SpannableStringBuilder builder = new SpannableStringBuilder();
+        String text = noteText.getText().toString();
+        builder.append(text.substring(0,noteText.getSelectionStart()));
+        builder.append(JsonImage);
+        builder.setSpan(new ImageSpan(this, bitmap), noteText.getSelectionStart(), builder.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        builder.append(text.substring(noteText.getSelectionEnd(), text.length()));
+        noteText.setText(builder);
+    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
 
         //Detects request codes
         if(requestCode==10 && resultCode == Activity.RESULT_OK) {
             Uri selectedImage = data.getData();
 
             try {
-                bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImage);
-                SpannableStringBuilder builder = new SpannableStringBuilder();
-                builder.append(noteText.getText().toString()==null?" ":noteText.getText().toString());
-                builder.setSpan(new ImageSpan(this, bitmap), builder.length() - 1, builder.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                noteText.setText(builder);
+                replaceByImage(noteText.getSelectionStart(), noteText.getSelectionEnd(), selectedImage);
             } catch (FileNotFoundException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();

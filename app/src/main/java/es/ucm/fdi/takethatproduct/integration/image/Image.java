@@ -4,33 +4,27 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.Serializable;
 
-@Entity(tableName = "image")
-public class Image implements Serializable {
-    @PrimaryKey(autoGenerate=true)
-    private int uuid;
-
-    @ColumnInfo(name = "ruta")
-    private String ruta;
-
-    public int getUuid() {
-        return uuid;
+public class Image {
+    //clase utilidad para gestionar imagenes
+    private static int id = 1;
+    public static String imageToJson(String uri) throws JSONException {
+        JSONObject json = new JSONObject();
+        json.put("type", "image");
+        json.put("uri", uri);
+        json.put("id", ++id);
+        return json.toString();
     }
 
-    public void setUuid(int uuid) {
-        this.uuid = uuid;
+    public static String bodyWithOutJsonImage (String body){
+        //LO Q HA COSTAO
+        //https://stackoverflow.com/questions/5633533/regular-expression-for-matching-parentheses
+        String cleaned = body.replaceAll("[\\{].*[\\}]", "");
+        return cleaned;
     }
 
-    public String getRuta() {
-        return ruta;
-    }
-
-    public void setRuta(String ruta) {
-        this.ruta = ruta;
-    }
-
-    public Image(String ruta) {
-        this.ruta = ruta;
-    }
 }
