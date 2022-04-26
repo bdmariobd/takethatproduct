@@ -11,7 +11,9 @@ jobs:
     name: Generate the apk file
     runs-on: ubuntu-latest
     outputs:
-      version: ${{ steps.getVersion.outputs.version }}
+      version:
+        description: Android Apk  Version
+        value: ${{ steps.getVersion.outputs.version }}
     steps:
     - uses: actions/checkout@v3
     - name: set up JDK 11
