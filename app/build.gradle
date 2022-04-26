@@ -29,7 +29,7 @@ android {
 
     task printVersionName {
         doLast {
-            println android.defaultConfig.versionName
+            print android.defaultConfig.versionName
         }
     }
 }
