@@ -143,7 +143,7 @@ public class NoteTotalViewActivity extends AppCompatActivity {
         String text = noteText.getText().toString();
         builder.append(text.substring(0,start));
         builder.append(JsonImage);
-        builder.setSpan(new ImageSpan(this, bitmap), start, builder.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        builder.setSpan(new ImageSpan(this, bitmap), start+1, builder.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         builder.append(text.substring(end, text.length()));
         noteText.setText(builder);
     }

@@ -21,7 +21,7 @@ public class Image {
         json.put("type", "image");
         json.put("uri", uri);
         json.put("id", ++id);
-        return json.toString();
+        return System.getProperty("line.separator") + json.toString() + System.getProperty("line.separator");
     }
 
     public static String bodyWithOutJsonImage (String body){
