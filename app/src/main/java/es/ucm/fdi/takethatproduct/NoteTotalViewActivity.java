@@ -17,12 +17,17 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.ParcelFileDescriptor;
 import android.provider.MediaStore;
 import android.text.Spannable;
+import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
+import android.text.style.DynamicDrawableSpan;
 import android.text.style.ImageSpan;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,6 +35,7 @@ import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.FileDescriptor;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.regex.Matcher;
@@ -37,6 +43,7 @@ import java.util.regex.Pattern;
 
 import es.ucm.fdi.takethatproduct.integration.image.Image;
 import es.ucm.fdi.takethatproduct.integration.note.Note;
+import es.ucm.fdi.takethatproduct.integration.product.ProductListAdapter;
 
 public class NoteTotalViewActivity extends AppCompatActivity {
 
@@ -74,8 +81,6 @@ public class NoteTotalViewActivity extends AppCompatActivity {
         for (Fragment fragment : getSupportFragmentManager().getFragments()) {
             getSupportFragmentManager().beginTransaction().remove(fragment).commit();
         }
-
-
 
         findViewById(R.id.noteTotalViewBack).setOnClickListener(new View.OnClickListener() {
 
@@ -153,6 +158,7 @@ public class NoteTotalViewActivity extends AppCompatActivity {
 
             try {
                 replaceByImage(noteText.getSelectionStart(), noteText.getSelectionEnd(), Image.getImagePathFromUri(selectedImage,getContentResolver()));
+
             } catch (FileNotFoundException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
@@ -163,6 +169,9 @@ public class NoteTotalViewActivity extends AppCompatActivity {
             catch (Exception e){
                 e.printStackTrace();
             }
+
         }
+
     }
+
 }

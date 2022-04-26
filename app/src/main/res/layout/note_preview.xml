@@ -4,35 +4,36 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginBottom="10dp"
+    android:background="#F1F1F1"
     android:orientation="vertical"
-    android:padding="10dp"
-    android:layout_marginBottom="10dp" >
+    android:padding="10dp">
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:id="@+id/notePreviewTitle"
-        android:textSize="20dp"
-        android:textColor="@color/black"
-        tools:text="My title"/>
-
-    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textSize="20dp"
+        tools:text="My title" />
+
+    <TextView
         android:id="@+id/notePreviewDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_below="@id/notePreviewTitle"
         android:textColor="#424141"
-        tools:text="My long long description"/>
+        tools:text="My long long description" />
 
     <TextView
+        android:id="@+id/notePreviewDate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/notePreviewDate"
         android:layout_below="@id/notePreviewDescription"
-        android:textSize="12dp"
         android:gravity="end"
         android:textColor="#424141"
-        tools:text="My long long description"/>
+        android:textSize="12dp"
+        tools:text="My long long description" />
 
 
 </RelativeLayout>
