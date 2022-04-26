@@ -14,7 +14,7 @@ public interface DAONote {
     public void insert(Note note);
 
     @Update
-    public void updateWords(Note... notes);
+    public void updateNotes(Note... notes);
 
     @Query("DELETE FROM notes")
     public void deleteAll();

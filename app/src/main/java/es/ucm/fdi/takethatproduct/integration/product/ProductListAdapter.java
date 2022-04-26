@@ -7,6 +7,8 @@ import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -19,6 +21,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
+import es.ucm.fdi.takethatproduct.NoteTotalViewActivity;
 import es.ucm.fdi.takethatproduct.R;
 
 public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.ProductViewHolder> {
@@ -40,12 +43,16 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
 
         final ProductListAdapter mAdapter;
         public final TextView productTitle;
+        public final TextView productPrecio;
         public final ImageView productImage;
+        public final Button addProduct;
         public final View itemView;
         public ProductViewHolder(View itemView, ProductListAdapter adapter) {
             super(itemView);
             productTitle = itemView.findViewById(R.id.productTitle);
+            productPrecio = itemView.findViewById(R.id.priceLabel);
             productImage = itemView.findViewById(R.id.productImage);
+            addProduct = itemView.findViewById(R.id.addProduct);
             this.mAdapter = adapter;
             this.itemView = itemView;
         }
@@ -69,6 +76,9 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
         //https://stackoverflow.com/questions/2394935/can-i-underline-text-in-an-android-layout
         holder.productTitle.setPaintFlags(holder.productTitle.getPaintFlags() |   Paint.UNDERLINE_TEXT_FLAG);
         //holder.bookAuthor.setText(book.getAuthors());
+
+        holder.productPrecio.setText( " "+String.valueOf(product.getPrecio()) + " €");
+
         holder.productTitle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -77,6 +87,20 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
                 context.startActivity(browserIntent);
             }
         });
+
+        holder.addProduct.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                /*
+                Intent intent = new Intent(v.getContext(), NoteTotalViewActivity.class);
+                intent.putExtra("Titulo", holder.productTitle.toString());
+                //intent.putExtra("Imagen", String.valueOf(holder.productImage)); // CAMBIAR
+                v.getContext().startActivity(intent);
+                */
+            }
+        });
+
+
         //https://github.com/bumptech/glide
         Glide.with(context)
                 .load(product.getUrlImagen().toString())
@@ -84,6 +108,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
                 .placeholder(android.R.drawable.ic_menu_report_image)
                 .into(holder.productImage);
     }
+
 
     @Override
     public int getItemCount() {

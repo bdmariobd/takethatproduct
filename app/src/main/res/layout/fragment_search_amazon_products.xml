@@ -4,15 +4,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".searchAmazonProductsFragment" >
+    android:background="#FFFFFF"
+    android:visibility="visible"
+    tools:context=".searchAmazonProductsFragment">
 
     <LinearLayout
-        android:layout_width="365dp"
-        android:layout_height="346dp"
+        android:layout_width="362dp"
+        android:layout_height="356dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
         android:orientation="vertical"
-        tools:layout_editor_absoluteX="25dp"
-        tools:layout_editor_absoluteY="7dp"
-        tools:ignore="MissingConstraints">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteY="34dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -24,16 +31,19 @@
                 android:layout_height="wrap_content"
                 android:clickable="true"
                 android:src="@android:drawable/ic_menu_close_clear_cancel"
-                app:backgroundTint="#00FFFFFF"
+                app:backgroundTint="#FB5050"
+                app:backgroundTintMode="src_in"
+                app:fabSize="normal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:rippleColor="#00FFFFFF"
-                tools:layout_editor_absoluteY="0dp"
-                tools:ignore="MissingConstraints" />
+                tools:ignore="MissingConstraints"
+                tools:layout_editor_absoluteY="0dp" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="#EDEDED"
             android:orientation="horizontal">
 
             <EditText
@@ -49,16 +59,24 @@
                 android:id="@+id/searchProduct"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+
                 android:layout_weight="1"
+                android:background="#EDEDED"
                 android:clickable="true"
+                android:contentDescription="@string/app_name"
                 android:src="?android:attr/actionModeWebSearchDrawable"
+                android:tint="@color/white"
+                app:backgroundTint="#03A9F4"
+                app:fabSize="normal"
+                app:useCompatPadding="true"
                 tools:ignore="NewApi" />
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/productList"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:background="#EDEDED" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
