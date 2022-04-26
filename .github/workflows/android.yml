@@ -31,7 +31,8 @@ jobs:
         path: app/build/outputs/apk/debug/app-debug.apk
     - name: Get app version
       id: getVersion
-      run: echo "::set-output name=version::$(./gradlew printVersionName)"
+      run: |
+        echo "::set-output name=version::$(./gradlew printVersionName)"
 
   release:
     name: Release the apk
