@@ -54,7 +54,7 @@ public class Note implements Serializable {
 
     public String getFechaCreacion() { return fechaCreacion; }
 
-    public void setFechaCreacion(String fechaModificacion) { this.fechaModificacion = fechaModificacion; }
+    public void setFechaCreacion(String fechaCreacion) { this.fechaCreacion = fechaCreacion; }
 
     public String getFechaModificacion() { return fechaModificacion; }
 

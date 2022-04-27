@@ -81,7 +81,15 @@ public class NotePreviewListAdapter extends RecyclerView.Adapter<NotePreviewList
         holder.notePreviewDescription.setText(cleanNoteBody);
 
         SimpleDateFormat formatter = new SimpleDateFormat("HH:mm - dd/MM/yyyy");
-        String date = formatter.format(Date.parse(current.getFechaModificacion()));
+        String date = null;
+        if (mNoteViewModel.getNotesOrderByDescCreationDate().hasActiveObservers())
+        {
+            date = formatter.format(Date.parse(current.getFechaCreacion()));
+        }
+        else
+        {
+            date = formatter.format(Date.parse(current.getFechaModificacion()));
+        }
         holder.notePreviewDate.setText(date);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {

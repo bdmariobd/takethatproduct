@@ -255,6 +255,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             boton_orden_notas.setPadding(dpAsPixels, dpAsPixels, dpAsPixels, dpAsPixels);
 
             // ordenar las notas en el orden normal
+            mNoteViewModel.getNotesOrderByDescCreationDate().removeObservers(this);
             mNoteViewModel.getAllNotes().observe(this, new Observer<List<Note>>() {
                 @Override
                 public void onChanged(@Nullable final List<Note> notes) {
@@ -277,7 +278,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                     adapter.setmNoteList(notes);
                 }
             });
-
         }
         else
         {
@@ -287,6 +287,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             boton_orden_notas.setPadding(dpAsPixels, dpAsPixels, dpAsPixels, dpAsPixels);
 
             // ordenar las notas en el orden normal
+            mNoteViewModel.getNotesOrderByDescCreationDate().removeObservers(this);
             mNoteViewModel.getNotesOrderByDescModificationDate().observe(this, new Observer<List<Note>>() {
                 @Override
                 public void onChanged(@Nullable final List<Note> notes) {
