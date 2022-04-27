@@ -112,6 +112,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     public void editNote(Note note){
         deleteNote(note);
         Intent i = new Intent(getApplicationContext(),NoteTotalViewActivity.class);
+        //this.sendBroadcast(i);
         i.putExtra("note", note);
         activityResultLauncher.launch(i);
     }

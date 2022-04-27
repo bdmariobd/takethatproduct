@@ -48,38 +48,51 @@ import es.ucm.fdi.takethatproduct.integration.product.ProductListAdapter;
 public class NoteTotalViewActivity extends AppCompatActivity {
 
     EditText noteText;
+    EditText titleInput;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.note_total_view);
 
-        Note note = (Note) getIntent().getSerializableExtra("note");
-        EditText titleInput = findViewById(R.id.noteTotalViewTitle);
+        titleInput = findViewById(R.id.noteTotalViewTitle);
         noteText = findViewById(R.id.noteTotalViewBody);
         View searchProductsContainer = findViewById(R.id.searchProductsFragmentContainer);
-        titleInput.setText(note.getTitulo(), TextView.BufferType.EDITABLE);
 
-        String cuerpo = note.getCuerpo();
-        noteText.setText("",TextView.BufferType.EDITABLE);
+        Note note = (Note) getIntent().getSerializableExtra("note");
+        if (note != null)
+        {
+            titleInput.setText(note.getTitulo(), TextView.BufferType.EDITABLE);
 
-        Pattern pattern = Pattern.compile("[\\{].*[\\}]");
-        Matcher matcher = pattern.matcher(cuerpo);
-        // Check all occurrences
-        int initial = 0;
-        while (matcher.find()) {
-            System.out.print("Start index: " + matcher.start());
-            System.out.print(" End index: " + matcher.end());
-            System.out.println(" Found: " + matcher.group());
-            try {
-                JSONObject jsonimage = new JSONObject(matcher.group());
-                noteText.append(note.getCuerpo().substring(initial, matcher.start()));
-                initial = matcher.end();
-                replaceByImage(matcher.start(), matcher.end(),jsonimage.getString("uri"));
-            } catch (JSONException | IOException e) {
-                e.printStackTrace();
+            String cuerpo = note.getCuerpo();
+            noteText.setText("", TextView.BufferType.EDITABLE);
+
+            Pattern pattern = Pattern.compile("[\\{].*[\\}]");
+            Matcher matcher = pattern.matcher(cuerpo);
+            // Check all occurrences
+            int initial = 0;
+            while (matcher.find()) {
+                System.out.print("Start index: " + matcher.start());
+                System.out.print(" End index: " + matcher.end());
+                System.out.println(" Found: " + matcher.group());
+                try {
+                    JSONObject jsonimage = new JSONObject(matcher.group());
+                    noteText.append(note.getCuerpo().substring(initial, matcher.start()));
+                    initial = matcher.end();
+                    replaceByImage(matcher.start(), matcher.end(), jsonimage.getString("uri"));
+                } catch (JSONException | IOException e) {
+                    e.printStackTrace();
+                }
             }
+            noteText.append((note.getCuerpo().substring(initial)));
         }
-        noteText.append((note.getCuerpo().substring(initial)));
+
+        String valor = getIntent().getStringExtra("Titulo");
+        if (valor != null)
+        {
+            noteText.append(valor);
+            //finish();
+        }
 
         for (Fragment fragment : getSupportFragmentManager().getFragments()) {
             getSupportFragmentManager().beginTransaction().remove(fragment).commit();
@@ -174,5 +187,6 @@ public class NoteTotalViewActivity extends AppCompatActivity {
         }
 
     }
+
 
 }
