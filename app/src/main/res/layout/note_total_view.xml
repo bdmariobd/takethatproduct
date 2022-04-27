@@ -11,7 +11,7 @@
         android:layout_height="423dp"
         android:layout_marginStart="23dp"
         android:layout_marginLeft="23dp"
-        android:layout_marginTop="152dp"
+        android:layout_marginTop="164dp"
         android:layout_marginEnd="28dp"
         android:layout_marginRight="28dp"
         android:background="@android:color/transparent"
@@ -31,7 +31,7 @@
         android:layout_height="63dp"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="488dp"
+        android:layout_marginTop="504dp"
         android:layout_marginEnd="14dp"
         android:layout_marginRight="14dp"
         android:gravity="end"
@@ -54,7 +54,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:clickable="true"
-            app:srcCompat="@android:drawable/ic_input_add" />
+            app:srcCompat="@android:drawable/ic_menu_gallery" />
+
     </LinearLayout>
 
     <Button

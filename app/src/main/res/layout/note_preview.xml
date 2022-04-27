@@ -13,6 +13,8 @@
         android:id="@+id/notePreviewTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="10dp"
         android:textColor="@color/black"
         android:textSize="20dp"
         tools:text="My title" />
