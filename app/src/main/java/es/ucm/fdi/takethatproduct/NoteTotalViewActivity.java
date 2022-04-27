@@ -60,23 +60,26 @@ public class NoteTotalViewActivity extends AppCompatActivity {
         titleInput.setText(note.getTitulo(), TextView.BufferType.EDITABLE);
 
         String cuerpo = note.getCuerpo();
-        noteText.setText(note.getCuerpo(), TextView.BufferType.EDITABLE);
+        noteText.setText("",TextView.BufferType.EDITABLE);
 
         Pattern pattern = Pattern.compile("[\\{].*[\\}]");
         Matcher matcher = pattern.matcher(cuerpo);
         // Check all occurrences
+        int initial = 0;
         while (matcher.find()) {
             System.out.print("Start index: " + matcher.start());
             System.out.print(" End index: " + matcher.end());
             System.out.println(" Found: " + matcher.group());
-            matcher.replaceFirst("");
             try {
                 JSONObject jsonimage = new JSONObject(matcher.group());
+                noteText.append(note.getCuerpo().substring(initial, matcher.start()));
+                initial = matcher.end();
                 replaceByImage(matcher.start(), matcher.end(),jsonimage.getString("uri"));
             } catch (JSONException | IOException e) {
                 e.printStackTrace();
             }
         }
+        noteText.append((note.getCuerpo().substring(initial)));
 
         for (Fragment fragment : getSupportFragmentManager().getFragments()) {
             getSupportFragmentManager().beginTransaction().remove(fragment).commit();
@@ -140,12 +143,10 @@ public class NoteTotalViewActivity extends AppCompatActivity {
         String JsonImage = Image.imageToJson(path);
         Bitmap bitmap = BitmapFactory.decodeFile(path);
         SpannableStringBuilder builder = new SpannableStringBuilder();
-        String text = noteText.getText().toString();
-        builder.append(text.substring(0,start));
+        //builder.append(text.substring(0,start));
         builder.append(JsonImage);
-        builder.setSpan(new ImageSpan(this, bitmap), start+1, builder.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        builder.append(text.substring(end, text.length()));
-        noteText.setText(builder);
+        builder.setSpan(new ImageSpan(this, bitmap), 0, builder.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        noteText.append(builder);
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
