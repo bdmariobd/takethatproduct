@@ -7,11 +7,11 @@
 
     <EditText
         android:id="@+id/noteTotalViewBody"
-        android:layout_width="359dp"
-        android:layout_height="423dp"
+        android:layout_width="524dp"
+        android:layout_height="177dp"
         android:layout_marginStart="23dp"
         android:layout_marginLeft="23dp"
-        android:layout_marginTop="152dp"
+        android:layout_marginTop="30dp"
         android:layout_marginEnd="28dp"
         android:layout_marginRight="28dp"
         android:background="@android:color/transparent"
@@ -20,11 +20,10 @@
         android:hapticFeedbackEnabled="false"
         android:hint="Escribe aquí ..."
         android:inputType="textMultiLine"
-        android:scrollbars="vertical"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.381"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/noteTotalViewTitle" />
 
     <LinearLayout
         android:id="@+id/noteTotalViewBarWithButtons"
@@ -42,8 +41,7 @@
             android:id="@+id/noteTotalViewSearchAPIButton"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginEnd="110dp"
-            android:layout_marginRight="110dp"
+            android:layout_marginRight="250dp"
             app:srcCompat="@android:drawable/ic_menu_search" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -52,6 +50,7 @@
             android:layout_height="wrap_content"
             android:clickable="true"
             app:srcCompat="@android:drawable/ic_menu_gallery" />
+
     </LinearLayout>
 
     <Button
@@ -59,9 +58,9 @@
         style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="63dp"
         android:layout_height="60dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="3dp"
-        android:layout_marginRight="3dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="36dp"
+        android:layout_marginRight="36dp"
         android:rotation="90"
         android:text="..."
         android:textColor="#000000"
@@ -74,27 +73,29 @@
         android:id="@+id/noteTotalViewBack"
         android:layout_width="84dp"
         android:layout_height="41dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginLeft="4dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="24dp"
         android:text="Back"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/noteTotalViewTitle"
-        android:layout_width="149dp"
-        android:layout_height="57dp"
+        android:layout_width="228dp"
+        android:layout_height="54dp"
         android:layout_marginStart="52dp"
         android:layout_marginLeft="52dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="56dp"
         android:layout_marginRight="56dp"
         android:ems="10"
+        android:gravity="center"
         android:hint="Título"
         android:inputType="textPersonName"
         android:textSize="34sp"
         app:layout_constraintEnd_toStartOf="@+id/noteTotalViewMoreOptionsButton"
+        app:layout_constraintHorizontal_bias="0.368"
         app:layout_constraintStart_toEndOf="@+id/noteTotalViewBack"
         app:layout_constraintTop_toTopOf="parent" />
 

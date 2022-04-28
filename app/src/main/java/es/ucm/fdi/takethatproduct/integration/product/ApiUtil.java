@@ -33,7 +33,7 @@ public class ApiUtil {
 
         List<Product> products = new ArrayList<Product>();
 
-        /*
+
         try {
             Uri builtURI = Uri.parse(ENDPOINT_URL).buildUpon()
                     .appendQueryParameter(QUERY_PARAM, queryString)
@@ -82,7 +82,7 @@ public class ApiUtil {
         Log.d(ApiUtil.class.getSimpleName(), productJSONString);
 
         JSONArray results = new JSONArray(productJSONString);
-        */
+
 
         // PROVISIONAL
         String jsonString =
@@ -95,7 +95,7 @@ public class ApiUtil {
         jsonString += "\"productUrl\":\"https://www.amazon.com/Nivea-Moisturizing-Package-Authentic-Unisex/dp/B018I0W8Q2/ref=sr_1_6?keywords=nivea&qid=1650795772&sr=8-6\",";
         jsonString += "\"prices\":[{\"price\":35.17,\"label\":null}]}]";
 
-        JSONArray results = new JSONArray(jsonString);
+        //JSONArray results = new JSONArray(jsonString);
         // FIN PROVISIONAL
 
         for(int i = 0 ; i<results.length(); ++i){

@@ -3,8 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".NoteViewFragment">
 
+    <!-- TODO: Update blank fragment layout -->
     <EditText
         android:id="@+id/noteTotalViewBody"
         android:layout_width="359dp"
@@ -18,7 +20,7 @@
         android:ems="10"
         android:gravity="start"
         android:hapticFeedbackEnabled="false"
-        android:hint="Escribe aquí ..."
+        android:hint="Mi primera descripción"
         android:inputType="textMultiLine"
         android:scrollbars="vertical"
         app:layout_constraintEnd_toEndOf="parent"
@@ -91,7 +93,7 @@
         android:layout_marginEnd="56dp"
         android:layout_marginRight="56dp"
         android:ems="10"
-        android:hint="Título"
+        android:hint="1ª nota"
         android:inputType="textPersonName"
         android:textSize="34sp"
         app:layout_constraintEnd_toStartOf="@+id/noteTotalViewMoreOptionsButton"

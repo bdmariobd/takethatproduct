@@ -9,7 +9,6 @@ import org.json.JSONObject;
 
 import java.util.Date;
 
-@Entity(tableName = "product")
 public class Product {
 
     @PrimaryKey(autoGenerate=true)
@@ -87,6 +86,17 @@ public class Product {
 
     public void setPrecio(Double precio) {
         this.precio = precio;
+    }
+
+    public String getJsonObject() throws JSONException {
+        JSONObject json = new JSONObject();
+        json.put("type", "product");
+        json.put("urlImage", this.urlImagen);
+        json.put("id", this.getUuid());
+        json.put("title", this.getTitulo());
+        json.put("url", this.getUrl());
+        json.put("price", this.getPrecio());
+        return json.toString();
     }
 
     public Product(String titulo, String url, String urlImagen, String variedad, Double precio) {

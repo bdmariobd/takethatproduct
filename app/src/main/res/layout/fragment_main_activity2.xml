@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivityFragment2">
+
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:id="@+id/MainViewSection"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Mis notas"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.079"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <RelativeLayout
+        android:id="@+id/note1"
+        android:layout_width="339dp"
+        android:layout_height="85dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginEnd="42dp"
+        android:layout_marginRight="42dp"
+        android:layout_marginBottom="31dp"
+        android:background="#F1F1F1"
+        android:orientation="vertical"
+        android:padding="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/note2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints">
+
+        <TextView
+            android:id="@+id/titulo1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            tools:text="1ª nota" />
+
+        <TextView
+            android:id="@+id/texto1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/titulo1"
+            android:textColor="#424141"
+            tools:text="Mi primera descripción" />
+
+        <TextView
+            android:id="@+id/fecha1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/texto1"
+            android:gravity="end"
+            android:textColor="#424141"
+            android:textSize="12dp"
+            tools:text="18:04 - 27/04/2022" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/note2"
+        android:layout_width="339dp"
+        android:layout_height="85dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginEnd="42dp"
+        android:layout_marginRight="42dp"
+        android:layout_marginBottom="264dp"
+        android:background="#F1F1F1"
+        android:orientation="vertical"
+        android:padding="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/addNoteButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints">
+
+        <TextView
+            android:id="@+id/titulo2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            tools:text="Lista compra" />
+
+        <TextView
+            android:id="@+id/texto2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/titulo2"
+            android:textColor="#424141"
+            tools:text="Verduras, tomates, lechugas, ..." />
+
+        <TextView
+            android:id="@+id/fecha2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/texto2"
+            android:gravity="end"
+            android:textColor="#424141"
+            android:textSize="12dp"
+            tools:text="18:11 - 27/04/2022" />
+
+    </RelativeLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/addNoteButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        android:layout_marginBottom="16dp"
+        android:clickable="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@android:drawable/ic_menu_add" />
+
+    <LinearLayout
+        android:id="@+id/mainViewLinearLayout"
+        android:layout_width="350dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="28dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/MainViewSection">
+
+        <TextView
+            android:id="@+id/mainViewInfoText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Tienes 2 notas" />
+
+        <Spinner
+            android:id="@+id/mainViewOrderNotesOptionsSpinner"
+            android:layout_width="172dp"
+            android:layout_height="56dp"
+            android:entries="@array/options"
+            android:spinnerMode="dropdown" />
+
+        <ImageButton
+            android:id="@+id/mainViewNotesOrderButton"
+            android:layout_width="61dp"
+            android:layout_height="56dp"
+            android:adjustViewBounds="true"
+            android:background="#FFFFFF"
+            android:onClick="pulsado"
+            android:padding="0dp"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/a_z" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
