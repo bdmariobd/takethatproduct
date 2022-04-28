@@ -77,15 +77,4 @@
 
     </LinearLayout>
 
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/fragmentContainerView"
-        android:name="androidx.navigation.fragment.NavHostFragment"
-        android:layout_width="321dp"
-        android:layout_height="9dp"
-        app:defaultNavHost="true"
-        app:navGraph="@navigation/my_nav"
-        tools:layout_editor_absoluteX="58dp"
-        tools:layout_editor_absoluteY="406dp"
-        tools:ignore="MissingConstraints" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
