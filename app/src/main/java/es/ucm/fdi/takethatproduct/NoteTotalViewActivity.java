@@ -121,6 +121,7 @@ public class NoteTotalViewActivity extends AppCompatActivity implements searchAm
     public void replaceByImage(int start, int end, String path) throws JSONException, IOException {
         String JsonImage = Image.imageToJson(path);
         Bitmap bitmaps = BitmapFactory.decodeFile(path);
+        if(bitmaps == null) return;
         SpannableStringBuilder builder = new SpannableStringBuilder();
         //builder.append(text.substring(0,start));
         Bitmap bitmap = Bitmap.createScaledBitmap(bitmaps, 500, 250, false);
