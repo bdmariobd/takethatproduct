@@ -15,6 +15,8 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.ParcelFileDescriptor;
@@ -141,11 +143,15 @@ public class NoteTotalViewActivity extends AppCompatActivity {
 
     public void replaceByImage(int start, int end, String path) throws JSONException, IOException {
         String JsonImage = Image.imageToJson(path);
-        Bitmap bitmap = BitmapFactory.decodeFile(path);
+        Bitmap bitmaps = BitmapFactory.decodeFile(path);
         SpannableStringBuilder builder = new SpannableStringBuilder();
         //builder.append(text.substring(0,start));
+        Bitmap bitmap = Bitmap.createScaledBitmap(bitmaps, 500, 250, false);
+        Drawable dr = new BitmapDrawable(getResources(), bitmap);
+        dr.setBounds(0, 0, bitmap.getWidth(), bitmap.getHeight());
+        ImageSpan imgSpan = new ImageSpan(dr, DynamicDrawableSpan.ALIGN_BOTTOM);new ImageSpan(this, bitmap);
         builder.append(JsonImage);
-        builder.setSpan(new ImageSpan(this, bitmap), 0, builder.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        builder.setSpan(imgSpan, 0, builder.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         noteText.append(builder);
     }
     @Override
