@@ -43,9 +43,10 @@ import java.util.regex.Pattern;
 
 import es.ucm.fdi.takethatproduct.integration.image.Image;
 import es.ucm.fdi.takethatproduct.integration.note.Note;
+import es.ucm.fdi.takethatproduct.integration.product.Product;
 import es.ucm.fdi.takethatproduct.integration.product.ProductListAdapter;
 
-public class NoteTotalViewActivity extends AppCompatActivity {
+public class NoteTotalViewActivity extends AppCompatActivity implements searchAmazonProductsFragment.onSomeEventListener {
 
     EditText noteText;
     @Override
@@ -148,6 +149,18 @@ public class NoteTotalViewActivity extends AppCompatActivity {
         builder.setSpan(new ImageSpan(this, bitmap), 0, builder.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         noteText.append(builder);
     }
+    public void replaceByProduct(int start, int end, Product p) throws JSONException, IOException {
+        /*String JsonImage = Image.imageToJson(path);
+        Bitmap bitmap = BitmapFactory.decodeFile(path);
+        SpannableStringBuilder builder = new SpannableStringBuilder();
+        //builder.append(text.substring(0,start));
+        builder.append(JsonImage);
+        builder.setSpan(new ImageSpan(this, bitmap), 0, builder.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        noteText.append(builder);
+        */
+    }
+
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -175,4 +188,10 @@ public class NoteTotalViewActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void someEvent(Product p) {
+        Log.d("product" , p.getTitulo());
+        replaceByProduct(p);
+
+    }
 }
