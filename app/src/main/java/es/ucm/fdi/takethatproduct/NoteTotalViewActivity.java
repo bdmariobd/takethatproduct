@@ -115,7 +115,7 @@ public class NoteTotalViewActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 FragmentManager fragmentManager = getSupportFragmentManager();
-                if (fragmentManager.getFragments() ==null || fragmentManager.getFragments().size()==0){
+                if (fragmentManager.getFragments() ==null || fragmentManager.getFragments().size()==0 || fragmentManager.getFragments().size() ==1){
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                     searchAmazonProductsFragment fragment = new searchAmazonProductsFragment();
                     fragmentTransaction.add(R.id.searchProductsFragmentContainer, fragment);

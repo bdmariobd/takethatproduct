@@ -30,6 +30,8 @@
                 android:id="@+id/closeSearchFragment"
                 android:layout_width="325dp"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="36dp"
+                android:layout_marginRight="36dp"
                 android:clickable="true"
                 android:src="@android:drawable/ic_menu_close_clear_cancel"
                 app:backgroundTint="#FB5050"

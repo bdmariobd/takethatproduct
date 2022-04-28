@@ -29,14 +29,11 @@
         android:id="@+id/noteTotalViewBarWithButtons"
         android:layout_width="381dp"
         android:layout_height="63dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="576dp"
-        android:layout_marginEnd="14dp"
-        android:layout_marginRight="14dp"
+        android:layout_marginTop="512dp"
         android:gravity="end"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.466"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
