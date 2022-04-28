@@ -223,10 +223,11 @@ public class NoteTotalViewActivity extends AppCompatActivity implements searchAm
             try {
                 JSONObject jsonimage = new JSONObject(matcher.group());
                 if (jsonimage.getString("type").matches("image")){
-                    lastfoundproduct = false;
-                    noteText.append(cuerpo.substring(initial, matcher.start()));
+                    if(!lastfoundproduct) noteText.append(cuerpo.substring(initial, matcher.start()));
                     initial = matcher.end();
                     replaceByImage(matcher.start(), matcher.end(),jsonimage.getString("uri"));
+                    lastfoundproduct = false;
+
                 }
                 else if (jsonimage.getString("type").matches("product")){
                     if(!lastfoundproduct) noteText.append(cuerpo.substring(initial, matcher.start()));

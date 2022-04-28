@@ -96,7 +96,7 @@ public class Product {
         json.put("title", this.getTitulo());
         json.put("url", this.getUrl());
         json.put("price", this.getPrecio());
-        return System.getProperty("line.separator") + json.toString();
+        return json.toString();
     }
 
     public Product(String titulo, String url, String urlImagen, String variedad, Double precio) {
