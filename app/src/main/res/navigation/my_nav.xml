@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/my_nav"
+    app:startDestination="@id/mainActivityFragment">
+    <fragment
+        android:id="@+id/mainActivityFragment"
+        android:name="es.ucm.fdi.takethatproduct.MainActivityFragment"
+        android:label="fragment_main_activity"
+        tools:layout="@layout/fragment_main_activity" >
+        <action
+            android:id="@+id/action_mainActivityFragment_to_noteTotalViewFragment"
+            app:destination="@id/noteTotalViewFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/noteTotalViewFragment"
+        android:name="es.ucm.fdi.takethatproduct.NoteTotalViewFragment"
+        android:label="fragment_note_total_view"
+        tools:layout="@layout/fragment_note_total_view" >
+        <action
+            android:id="@+id/action_noteTotalViewFragment_to_noteTotalViewAmazonFragment"
+            app:destination="@id/noteTotalViewAmazonFragment" />
+        <action
+            android:id="@+id/action_noteTotalViewFragment_to_mainActivityFragment"
+            app:destination="@id/mainActivityFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/noteTotalViewAmazonFragment"
+        android:name="es.ucm.fdi.takethatproduct.NoteTotalViewAmazonFragment"
+        android:label="fragment_note_total_view_amazon"
+        tools:layout="@layout/fragment_note_total_view_amazon" >
+        <action
+            android:id="@+id/action_noteTotalViewAmazonFragment_to_mainActivityFragment"
+            app:destination="@id/mainActivityFragment" />
+    </fragment>
+</navigation>
