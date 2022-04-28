@@ -5,10 +5,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentContainer;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.Manifest;
 import android.app.Activity;
@@ -42,6 +38,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;
@@ -71,14 +68,10 @@ public class NoteTotalViewActivity extends AppCompatActivity implements searchAm
         EditText titleInput = findViewById(R.id.noteTotalViewTitle);
         noteText = findViewById(R.id.noteTotalViewBody);
         //noteText.setMovementMethod(LinkMovementMethod.getInstance()); // enable clicking on url span
-        View searchProductsContainer = findViewById(R.id.searchProductsFragmentContainer);
         titleInput.setText(note.getTitulo(), TextView.BufferType.EDITABLE);
 
         String cuerpo = note.getCuerpo();
         reloadJsons(cuerpo);
-        for (Fragment fragment : getSupportFragmentManager().getFragments()) {
-            getSupportFragmentManager().beginTransaction().remove(fragment).commit();
-        }
 
         findViewById(R.id.noteTotalViewBack).setOnClickListener(new View.OnClickListener() {
 
@@ -95,14 +88,7 @@ public class NoteTotalViewActivity extends AppCompatActivity implements searchAm
         findViewById(R.id.noteTotalViewSearchAPIButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                if (fragmentManager.getFragments() ==null || fragmentManager.getFragments().size()==0  || fragmentManager.getFragments().size() ==1){
-                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                    searchAmazonProductsFragment fragment = new searchAmazonProductsFragment();
-                    fragmentTransaction.add(R.id.searchProductsFragmentContainer, fragment);
-                    fragmentTransaction.commit();
-                }
-
+                showBottomSheetDialog();
             }
         });
 
@@ -267,5 +253,24 @@ public class NoteTotalViewActivity extends AppCompatActivity implements searchAm
         //this.noteText.setText(cuerpo.substring(0,noteText.getSelectionStart()) + p.getJsonObject() + cuerpo.substring(noteText.getSelectionEnd()));
         reloadJsons(cuerpo.substring(0,noteText.getSelectionStart()) + p.getJsonObject() + cuerpo.substring(noteText.getSelectionEnd()));
 
+    }
+
+    private void showBottomSheetDialog() {
+
+        final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
+
+        searchAmazonProductsFragment fragment =
+                searchAmazonProductsFragment.newInstance();
+        fragment.show(getSupportFragmentManager(),
+                "searchFragment");
+
+        /*bottomSheetDialog.findViewById(R.id.searchProductButton).setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                    }
+                }
+        );*/
     }
 }

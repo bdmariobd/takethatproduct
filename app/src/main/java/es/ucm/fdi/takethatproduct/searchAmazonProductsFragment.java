@@ -1,11 +1,14 @@
 package es.ucm.fdi.takethatproduct;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -18,9 +21,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;
 
 import java.io.IOException;
@@ -38,7 +48,9 @@ import es.ucm.fdi.takethatproduct.integration.product.ProductLoaderCallbacks;
  * Use the {@link searchAmazonProductsFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class searchAmazonProductsFragment extends Fragment {
+public class searchAmazonProductsFragment extends BottomSheetDialogFragment {
+
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -50,6 +62,7 @@ public class searchAmazonProductsFragment extends Fragment {
     private String mParam2;
     private ProductLoaderCallbacks productLoaderCallbacks;
     private ProductListAdapter productListAdapter;
+    RecyclerView productList;
 
     public interface onSomeEventListener {
         public void someEvent(Product p) throws IOException, JSONException, ExecutionException, InterruptedException;
@@ -91,7 +104,6 @@ public class searchAmazonProductsFragment extends Fragment {
         super.onCreate(savedInstanceState);
         productLoaderCallbacks = new ProductLoaderCallbacks(this);
 
-
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -102,6 +114,8 @@ public class searchAmazonProductsFragment extends Fragment {
 
 
     }
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -122,7 +136,7 @@ public class searchAmazonProductsFragment extends Fragment {
         if(loaderManager.getLoader(0)!=null){
             loaderManager.initLoader(0,null,productLoaderCallbacks);
         }
-        view.findViewById(R.id.searchProduct).setOnClickListener(new View.OnClickListener() {
+        view.findViewById(R.id.searchProductButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ConnectivityManager connMgr = (ConnectivityManager)
@@ -142,15 +156,7 @@ public class searchAmazonProductsFragment extends Fragment {
             }
         });
 
-        view.findViewById(R.id.closeSearchFragment).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentManager manager = getActivity().getSupportFragmentManager();
-                FragmentTransaction trans = manager.beginTransaction();
-                trans.remove((Fragment) that);
-                trans.commit();
-            }
-        });
+
 
         return view;
     }

@@ -98,14 +98,4 @@
         app:layout_constraintStart_toEndOf="@+id/noteTotalViewBack"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/searchProductsFragmentContainer"
-        android:name="es.ucm.fdi.takethatproduct.searchAmazonProductsFragment"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/noteTotalViewBarWithButtons"
-        app:layout_constraintTop_toTopOf="@+id/noteTotalViewBody"
-        tools:layout_editor_absoluteX="203dp"
-        tools:ignore="MissingConstraints" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
