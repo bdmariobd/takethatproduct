@@ -2,10 +2,8 @@ package es.ucm.fdi.takethatproduct.integration.product;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Paint;
 import android.net.Uri;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -93,16 +91,12 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
         holder.addProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                /*
                 Intent intent = new Intent(v.getContext(), NoteTotalViewActivity.class);
-                //Intent intent = new Intent();
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                //intent.setAction(Intent.ACTION_SEND);
-                intent.putExtra("Titulo", holder.productTitle.getText());
-                //intent.putExtra(Intent.EXTRA_TEXT, holder.productTitle.getText());
-                //intent.setType("text/plain");
-                //intent.putExtra("Imagen", String.valueOf(holder.productImage));
+                intent.putExtra("Titulo", holder.productTitle.toString());
+                //intent.putExtra("Imagen", String.valueOf(holder.productImage)); // CAMBIAR
                 v.getContext().startActivity(intent);
+                */
             }
         });
 
