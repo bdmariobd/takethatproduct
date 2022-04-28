@@ -179,6 +179,10 @@ public class NoteTotalViewActivity extends AppCompatActivity implements searchAm
                         builder.setSpan(sp , i,i + p.getTitulo().length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                         builder.append(" - "+p.getPrecio() + '$');
                         noteText.append(builder);
+
+                        noteText.setClickable(true);
+                        //noteText.setMovementMethod(LinkMovementMethod.getInstance());
+
                     }
 
                     @Override
