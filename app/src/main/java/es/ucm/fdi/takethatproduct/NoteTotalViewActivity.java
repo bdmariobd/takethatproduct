@@ -264,6 +264,7 @@ public class NoteTotalViewActivity extends AppCompatActivity implements searchAm
         fragment.show(getSupportFragmentManager(),
                 "searchFragment");
 
+
         /*bottomSheetDialog.findViewById(R.id.searchProductButton).setOnClickListener(
                 new View.OnClickListener() {
                     @Override

@@ -10,6 +10,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -109,6 +110,7 @@ public class searchAmazonProductsFragment extends BottomSheetDialogFragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
+        setStyle(DialogFragment.STYLE_NORMAL, R.style.DialogStyle);
 
 
 
