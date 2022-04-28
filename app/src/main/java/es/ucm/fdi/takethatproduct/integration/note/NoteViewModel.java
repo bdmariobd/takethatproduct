@@ -5,6 +5,7 @@ import android.app.Application;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
+import java.io.Serializable;
 import java.util.List;
 
 import es.ucm.fdi.takethatproduct.integration.product.NotesRepository;

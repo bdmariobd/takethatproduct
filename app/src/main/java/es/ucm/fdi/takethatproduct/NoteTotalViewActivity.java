@@ -19,12 +19,15 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.ParcelFileDescriptor;
 import android.provider.MediaStore;
+import android.text.Editable;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
+import android.text.TextWatcher;
 import android.text.style.DynamicDrawableSpan;
 import android.text.style.ImageSpan;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -43,16 +46,20 @@ import java.util.regex.Pattern;
 
 import es.ucm.fdi.takethatproduct.integration.image.Image;
 import es.ucm.fdi.takethatproduct.integration.note.Note;
+import es.ucm.fdi.takethatproduct.integration.note.NoteViewModel;
 import es.ucm.fdi.takethatproduct.integration.product.ProductListAdapter;
 
 public class NoteTotalViewActivity extends AppCompatActivity {
 
     EditText noteText;
+    NoteViewModel mNoteViewModel;
+    //Note note = new Note("","");
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.note_total_view);
 
+        mNoteViewModel = (NoteViewModel) getIntent().getSerializableExtra("mNoteViewModel");
         Note note = (Note) getIntent().getSerializableExtra("note");
         EditText titleInput = findViewById(R.id.noteTotalViewTitle);
         noteText = findViewById(R.id.noteTotalViewBody);
@@ -81,6 +88,32 @@ public class NoteTotalViewActivity extends AppCompatActivity {
         for (Fragment fragment : getSupportFragmentManager().getFragments()) {
             getSupportFragmentManager().beginTransaction().remove(fragment).commit();
         }
+
+        noteText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+
+
+                return true;
+            }
+        });
+
+        noteText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                note.setCuerpo(noteText.getText().toString());
+            }
+        });
 
         findViewById(R.id.noteTotalViewBack).setOnClickListener(new View.OnClickListener() {
 

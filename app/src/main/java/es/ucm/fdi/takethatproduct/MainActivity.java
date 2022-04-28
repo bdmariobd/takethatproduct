@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -22,6 +23,8 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import es.ucm.fdi.takethatproduct.integration.note.Note;
@@ -109,11 +112,17 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         });
     }
 
-    public void editNote(Note note){
+    protected void editNote(Note note){
         deleteNote(note);
         Intent i = new Intent(getApplicationContext(),NoteTotalViewActivity.class);
+        i.putExtra("mNoteViewModel", mNoteViewModel);
         i.putExtra("note", note);
         activityResultLauncher.launch(i);
+    }
+
+    public void saveNote(Note note){
+        deleteNote(note);
+        mNoteViewModel.insert(note);
     }
 
     public void deleteNote(Note note){
