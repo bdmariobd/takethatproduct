@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,8 +19,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 
 import org.jetbrains.annotations.NotNull;
+import org.json.JSONException;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 import es.ucm.fdi.takethatproduct.NoteTotalViewActivity;
 import es.ucm.fdi.takethatproduct.R;
@@ -91,7 +95,14 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
         holder.addProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                context.someEvent(product);
+                try {
+                    Log.d("Product clicked" , product.getTitulo());
+                    context.someEvent(product);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         });
 

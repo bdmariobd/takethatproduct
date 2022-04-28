@@ -21,8 +21,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONException;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import es.ucm.fdi.takethatproduct.integration.product.ApiUtil;
 import es.ucm.fdi.takethatproduct.integration.product.Product;
@@ -48,7 +52,7 @@ public class searchAmazonProductsFragment extends Fragment {
     private ProductListAdapter productListAdapter;
 
     public interface onSomeEventListener {
-        public void someEvent(Product p);
+        public void someEvent(Product p) throws IOException, JSONException, ExecutionException, InterruptedException;
     }
 
     onSomeEventListener someEventListener;
