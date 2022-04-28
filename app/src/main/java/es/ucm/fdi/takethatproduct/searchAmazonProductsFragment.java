@@ -1,5 +1,6 @@
 package es.ucm.fdi.takethatproduct;
 
+import android.app.Activity;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.os.Build;
@@ -46,11 +47,26 @@ public class searchAmazonProductsFragment extends Fragment {
     private ProductLoaderCallbacks productLoaderCallbacks;
     private ProductListAdapter productListAdapter;
 
+    public interface onSomeEventListener {
+        public void someEvent(Product p);
+    }
+
+    onSomeEventListener someEventListener;
+
 
     public searchAmazonProductsFragment() {
         // Required empty public constructor
     }
 
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        try {
+            someEventListener = (onSomeEventListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString() + " must implement onSomeEventListener");
+        }
+    }
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
@@ -95,7 +111,7 @@ public class searchAmazonProductsFragment extends Fragment {
 
         RecyclerView productList = view.findViewById(R.id.productList);
         productList.setLayoutManager(new LinearLayoutManager(getContext()));
-        productListAdapter = new ProductListAdapter(getActivity());
+        productListAdapter = new ProductListAdapter((NoteTotalViewActivity) getActivity());
         productList.setAdapter(productListAdapter);
 
         LoaderManager loaderManager = LoaderManager.getInstance(this);
@@ -145,4 +161,6 @@ public class searchAmazonProductsFragment extends Fragment {
         //this.setProgressBarLoading(false);
 
     }
+
+
 }

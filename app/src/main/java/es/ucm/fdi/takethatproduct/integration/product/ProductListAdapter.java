@@ -27,13 +27,13 @@ import es.ucm.fdi.takethatproduct.R;
 public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.ProductViewHolder> {
     private ArrayList<Product> mProductList;
     private final LayoutInflater mInflater;
-    private final Activity context;
+    private final NoteTotalViewActivity context;
 
     public void setmProductList(ArrayList<Product> mProductList){
         this.mProductList = mProductList;
     }
 
-    public ProductListAdapter(Activity context) {
+    public ProductListAdapter(NoteTotalViewActivity context) {
         this.mInflater = LayoutInflater.from(context);
         this.mProductList = new ArrayList<Product>();
         this.context = context;
@@ -91,12 +91,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
         holder.addProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*
-                Intent intent = new Intent(v.getContext(), NoteTotalViewActivity.class);
-                intent.putExtra("Titulo", holder.productTitle.toString());
-                //intent.putExtra("Imagen", String.valueOf(holder.productImage)); // CAMBIAR
-                v.getContext().startActivity(intent);
-                */
+                context.someEvent(product);
             }
         });
 
