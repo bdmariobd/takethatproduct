@@ -96,7 +96,7 @@ public class NoteTotalViewActivity extends AppCompatActivity implements searchAm
             @Override
             public void onClick(View v) {
                 FragmentManager fragmentManager = getSupportFragmentManager();
-                if (fragmentManager.getFragments() ==null || fragmentManager.getFragments().size()==0){
+                if (fragmentManager.getFragments() ==null || fragmentManager.getFragments().size()==0  || fragmentManager.getFragments().size() ==1){
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                     searchAmazonProductsFragment fragment = new searchAmazonProductsFragment();
                     fragmentTransaction.add(R.id.searchProductsFragmentContainer, fragment);
@@ -118,7 +118,6 @@ public class NoteTotalViewActivity extends AppCompatActivity implements searchAm
             }
         });
     }
-
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull @NotNull String[] permissions, @NonNull @NotNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
