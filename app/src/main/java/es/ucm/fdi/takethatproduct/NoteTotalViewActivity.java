@@ -84,6 +84,17 @@ public class NoteTotalViewActivity extends AppCompatActivity implements searchAm
                 finish();
             }
         });
+        findViewById(R.id.noteTotalViewAddElementsButton).setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                Note nota= new Note(titleInput.getText().toString(),noteText.getText().toString() );
+                Intent i = new Intent();
+                i.putExtra("noteResult", nota);
+                setResult(0, i);
+                finish();
+            }
+        });
 
         findViewById(R.id.noteTotalViewSearchAPIButton).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,7 +103,7 @@ public class NoteTotalViewActivity extends AppCompatActivity implements searchAm
             }
         });
 
-        findViewById(R.id.noteTotalViewAddElementsButton).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.noteTotalViewAddElementsButton5).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED){
