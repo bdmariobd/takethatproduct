@@ -85,6 +85,18 @@ public class NoteTotalViewActivity extends AppCompatActivity implements searchAm
             }
         });
 
+        findViewById(R.id.button4).setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                Note nota= new Note(titleInput.getText().toString(),noteText.getText().toString() );
+                Intent i = new Intent();
+                i.putExtra("noteResult", nota);
+                setResult(0, i);
+                finish();
+            }
+        });
+
         findViewById(R.id.noteTotalViewSearchAPIButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

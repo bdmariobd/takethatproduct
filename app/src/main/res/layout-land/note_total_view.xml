@@ -7,30 +7,28 @@
 
     <EditText
         android:id="@+id/noteTotalViewBody"
-        android:layout_width="524dp"
-        android:layout_height="177dp"
-        android:layout_marginStart="23dp"
-        android:layout_marginLeft="23dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="28dp"
-        android:layout_marginRight="28dp"
+        android:layout_width="585dp"
+        android:layout_height="217dp"
         android:background="@android:color/transparent"
         android:ems="10"
         android:gravity="start"
         android:hapticFeedbackEnabled="false"
         android:hint="Escribe aquí ..."
         android:inputType="textMultiLine"
+        android:scrollbars="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.381"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/noteTotalViewTitle" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.67" />
 
     <LinearLayout
         android:id="@+id/noteTotalViewBarWithButtons"
-        android:layout_width="681dp"
-        android:layout_height="62dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
+        android:layout_width="408dp"
+        android:layout_height="56dp"
+        android:layout_marginEnd="160dp"
+        android:layout_marginRight="160dp"
+        android:layout_marginBottom="8dp"
         android:background="#FFFFFF"
         android:gravity="end"
         android:orientation="horizontal"
@@ -41,7 +39,8 @@
             android:id="@+id/noteTotalViewSearchAPIButton"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginRight="250dp"
+            android:layout_marginEnd="110dp"
+            android:layout_marginRight="110dp"
             app:srcCompat="@android:drawable/ic_menu_search" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -50,53 +49,42 @@
             android:layout_height="wrap_content"
             android:clickable="true"
             app:srcCompat="@android:drawable/ic_menu_gallery" />
-
     </LinearLayout>
-
-    <Button
-        android:id="@+id/noteTotalViewMoreOptionsButton"
-        style="@style/Widget.AppCompat.Button.Borderless"
-        android:layout_width="63dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="36dp"
-        android:layout_marginRight="36dp"
-        android:rotation="90"
-        android:text="..."
-        android:textColor="#000000"
-        android:textSize="30sp"
-        app:backgroundTint="#FFFFFF"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/noteTotalViewBack"
         android:layout_width="84dp"
         android:layout_height="41dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="28dp"
         android:text="Back"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/noteTotalViewTitle"
-        android:layout_width="228dp"
-        android:layout_height="54dp"
+        android:layout_width="149dp"
+        android:layout_height="57dp"
         android:layout_marginStart="52dp"
         android:layout_marginLeft="52dp"
         android:layout_marginTop="24dp"
-        android:layout_marginEnd="56dp"
-        android:layout_marginRight="56dp"
         android:ems="10"
-        android:gravity="center"
         android:hint="Título"
         android:inputType="textPersonName"
         android:textSize="34sp"
-        app:layout_constraintEnd_toStartOf="@+id/noteTotalViewMoreOptionsButton"
-        app:layout_constraintHorizontal_bias="0.368"
         app:layout_constraintStart_toEndOf="@+id/noteTotalViewBack"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="88dp"
+        android:layout_marginLeft="88dp"
+        android:layout_marginBottom="16dp"
+        android:text="Save"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
