@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
@@ -141,6 +142,10 @@ public class searchAmazonProductsFragment extends BottomSheetDialogFragment {
         view.findViewById(R.id.searchProductButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                InputMethodManager imm = (InputMethodManager)getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+
                 ConnectivityManager connMgr = (ConnectivityManager)
                         getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
                 if (ApiUtil.networkAvailable(connMgr)) {
